@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="380dp"
+        android:layout_gravity="center" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="RentWise"
+            android:textColor="@color/pastel_purple"
+            android:textSize="24pt"
+            android:gravity="center"
+            android:fontFamily="@font/Manrope_Bold"
+            android:letterSpacing="0.08">
+        </TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="E-mail"
+            android:textColor="@color/white"
+            android:textSize="16pt"
+            android:fontFamily="@font/Manrope_SemiBold"
+            android:layout_marginBottom="20dp">
+        </TextView>
+            <View
+                android:layout_width="500dp"
+                android:layout_height="70dp"
+                android:background="@drawable/email_background">
+            </View>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="50dp"
+        android:gravity="center">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Password"
+            android:textColor="@color/white"
+            android:textSize="16pt"
+            android:fontFamily="@font/Manrope_SemiBold"
+            android:layout_marginBottom="20dp">
+        </TextView>
+
+            <View
+                android:layout_width="500dp"
+                android:layout_height="70dp"
+                android:background="@drawable/email_background">
+            </View>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="50dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </CheckBox>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Remember me"
+            android:textColor="@color/white"
+            android:fontFamily="@font/Manrope_SemiBold"
+            android:textSize="10pt"
+            android:layout_marginTop="2dp">
+        </TextView>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginTop="100dp">
+        <Button
+            android:layout_width="350dp"
+            android:layout_height="80dp"
+            android:text="Login"
+            android:textSize="16pt"
+            android:layout_marginBottom="30dp"
+            android:fontFamily="@font/Manrope_Bold"
+            android:background="@drawable/register_background"
+            android:textColor="@color/white"
+            android:letterSpacing="0.06">
+        </Button>
+        <Button
+            android:layout_width="350dp"
+            android:layout_height="80dp"
+            android:text="Register"
+            android:textSize="16pt"
+            android:fontFamily="@font/Manrope_Bold"
+            android:textColor="@color/blue_dark"
+            android:background="@drawable/email_background"
+            android:letterSpacing="0.03">
+        </Button>
+    </LinearLayout>
+
+</LinearLayout>
