@@ -16,7 +16,7 @@
             android:drawableLeft="@drawable/arrow_back"
             android:text="Set Up Room"
             android:textSize="12pt"
-            android:fontFamily="@font/Manrope_Bold"
+            android:fontFamily="@font/manrope_semibold"
             android:textColor="@color/black">
         </TextView>
 
@@ -37,7 +37,7 @@
                     android:text="Property Title:"
                     android:textColor="@color/black"
                     android:textSize="16pt"
-                    android:fontFamily="@font/Manrope_SemiBold"
+                    android:fontFamily="@font/manrope_semibold"
                     android:layout_marginBottom="12dp">
                 </TextView>
                 <View
@@ -65,7 +65,7 @@
                 android:text="Description:"
                 android:textColor="@color/black"
                 android:textSize="16pt"
-                android:fontFamily="@font/Manrope_SemiBold"
+                android:fontFamily="@font/manrope_semibold"
                 android:layout_marginBottom="12dp">
             </TextView>
             <View
@@ -92,7 +92,7 @@
                 android:text="Room type:"
                 android:textColor="@color/black"
                 android:textSize="16pt"
-                android:fontFamily="@font/Manrope_SemiBold"
+                android:fontFamily="@font/manrope_semibold"
                 android:layout_marginBottom="12dp">
             </TextView>
             <View
@@ -118,7 +118,7 @@
                 android:text="Amenities"
                 android:textColor="@color/black"
                 android:textSize="16pt"
-                android:fontFamily="@font/Manrope_SemiBold"
+                android:fontFamily="@font/manrope_semibold"
                 android:layout_marginBottom="12dp">
             </TextView>
             <View
@@ -144,7 +144,7 @@
                 android:text="Upload Photo:"
                 android:textColor="@color/black"
                 android:textSize="16pt"
-                android:fontFamily="@font/Manrope_SemiBold"
+                android:fontFamily="@font/manrope_semibold"
                 android:layout_marginBottom="12dp">
             </TextView>
             <LinearLayout
@@ -181,7 +181,7 @@
                 android:layout_height="140dp"
                 android:text="upload photo"
                 android:textSize="16pt"
-                android:fontFamily="@font/Manrope_Bold"
+                android:fontFamily="@font/manrope_semibold"
                 android:drawableTop="@drawable/camera"
                 android:background="@drawable/upload_photo_background"/>
 
@@ -204,7 +204,7 @@
                 android:text="Price:"
                 android:textColor="@color/black"
                 android:textSize="16pt"
-                android:fontFamily="@font/Manrope_SemiBold"
+                android:fontFamily="@font/manrope_semibold"
                 android:layout_marginBottom="12dp">
             </TextView>
             <View
@@ -224,7 +224,7 @@
         android:layout_height="70dp"
         android:text="Post Room"
         android:textSize="16dp"
-        android:fontFamily="@font/Manrope_Bold"
+        android:fontFamily="@font/manrope_semibold"
         android:background="@drawable/register_background"
         android:textColor="@color/white">
     </Button>

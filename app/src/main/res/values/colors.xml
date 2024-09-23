@@ -12,4 +12,7 @@
     <color name="blue_dark">#415A77</color>
     <color name="background_white">#DFDFDD</color>
     <color name="dark_letter_blue">#090937</color>
+    <color name="outer_bg">#031A27</color>
+    <color name="inner_bg">#02131D</color>
+    <color name="font">#E2DDDD</color>
 </resources>
