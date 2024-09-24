@@ -1,5 +1,6 @@
 package kh.edu.rupp.ite.rentwise
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import kh.edu.rupp.ite.rentwise.databinding.ActivityLoginBinding
@@ -15,6 +16,12 @@ class RegisterActivity : ComponentActivity() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Set click listener on the "Register" button
+        binding.btnlogin.setOnClickListener {
+            // Navigate to the RegisterPageActivity
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 

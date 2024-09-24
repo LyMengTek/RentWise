@@ -133,7 +133,7 @@
                 android:textSize="16sp" />
 
             <Button
-                android:id="@+id/register"
+                android:id="@+id/btnregister"
                 android:layout_marginTop="16dp"
                 android:layout_width="200dp"
                 android:layout_height="50dp"
