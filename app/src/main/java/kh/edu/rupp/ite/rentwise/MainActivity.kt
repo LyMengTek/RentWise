@@ -1,47 +1,27 @@
 package kh.edu.rupp.ite.rentwise
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import kh.edu.rupp.ite.rentwise.ui.theme.RentWiseTheme
+import kh.edu.rupp.ite.rentwise.databinding.ActivityLoginBinding
 
 class MainActivity : ComponentActivity() {
+
+    private lateinit var binding: ActivityLoginBinding;
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            RentWiseTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }
+
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        // Set click listener on the "Register" button
+        binding.register.setOnClickListener {
+            // Navigate to the RegisterPageActivity
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
         }
+
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    RentWiseTheme {
-        Greeting("Android")
-    }
-}

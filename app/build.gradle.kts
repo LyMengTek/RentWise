@@ -7,6 +7,10 @@ android {
     namespace = "kh.edu.rupp.ite.rentwise"
     compileSdk = 34
 
+    buildFeatures {
+        viewBinding = true
+    }
+
     defaultConfig {
         applicationId = "kh.edu.rupp.ite.rentwise"
         minSdk = 24
