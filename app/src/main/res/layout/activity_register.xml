@@ -19,11 +19,12 @@
             android:letterSpacing="0.08"
             android:text="RentWise"
             android:textColor="#A7B2C6"
-            android:textSize="50sp" />
+            android:textSize="30sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="34dp"
             android:layout_marginVertical="20dp"
             android:gravity="center_vertical">
 
@@ -31,6 +32,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
+
                 android:layout_weight="1"
                 android:orientation="vertical">
 
@@ -39,6 +41,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/manrope_semibold"
                     android:text="Firstname"
+                    android:layout_marginBottom="10dp"
                     android:textColor="@color/font"
                     android:textSize="20sp" />
 
@@ -47,6 +50,7 @@
                     android:layout_height="50dp"
                     android:background="@drawable/bg_input"
                     android:hint="Enter FirstName"
+                    android:padding="8dp"
                     android:inputType="text" />
             </LinearLayout>
 
@@ -60,6 +64,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/manrope_semibold"
+                    android:layout_marginBottom="10dp"
                     android:text="Lastname"
                     android:textColor="@color/font"
                     android:textSize="20sp"/>
@@ -69,6 +74,7 @@
                     android:layout_height="50dp"
                     android:background="@drawable/bg_input"
                     android:hint="Enter LastName"
+                    android:padding="8dp"
                     android:inputType="text" />
             </LinearLayout>
         </LinearLayout>
@@ -76,20 +82,25 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:layout_marginVertical="20dp"
-            android:orientation="vertical">
+            android:layout_marginHorizontal="34dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
+                android:layout_marginBottom="10dp"
                 android:fontFamily="@font/manrope_semibold"
                 android:text="Phone Number"
                 android:textColor="@color/font"
                 android:textSize="20sp"/>
 
             <EditText
+                android:id="@+id/ris_phonenumber"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:padding="16dp"
                 android:background="@drawable/bg_input"
                 android:hint="Enter PhoneNumber"
                 android:inputType="phone" />
@@ -99,12 +110,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:layout_marginVertical="20dp"
-            android:orientation="vertical">
+            android:layout_marginHorizontal="34dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:fontFamily="@font/manrope_semibold"
                 android:text="E-mail"
                 android:textColor="@color/font"
@@ -115,19 +128,22 @@
                 android:layout_height="50dp"
                 android:background="@drawable/bg_input"
                 android:hint="Enter Email"
-                android:inputType="text" />
+                android:inputType="text"
+                android:padding="16dp"/>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:layout_marginVertical="20dp"
-            android:orientation="vertical">
+            android:layout_marginHorizontal="34dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:text="Password"
                 android:textColor="@color/font"
                 android:textSize="20sp" />
@@ -137,19 +153,22 @@
                 android:layout_height="50dp"
                 android:background="@drawable/bg_input"
                 android:hint="Enter Password"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:padding="16dp"/>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:layout_marginVertical="20dp"
-            android:orientation="vertical">
+            android:layout_marginHorizontal="34dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:text="Comfirm Password"
                 android:textColor="@color/font"
                 android:textSize="20sp" />
@@ -158,8 +177,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/bg_input"
-                android:hint="Enter Password Again"
-                android:inputType="textPassword" />
+                android:hint="Comfirm Password"
+                android:inputType="textPassword"
+                android:padding="16dp"/>
 
         </LinearLayout>
 
@@ -167,85 +187,101 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="34dp"
             android:orientation="vertical">
 
-            <Button
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="30dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="25dp"
                 android:drawableTop="@mipmap/ic_camera"
                 android:fontFamily="@font/manrope_bold"
                 android:text="Profile Picture"
-                android:textSize="20sp"/>
+                android:gravity="center"
+                android:textSize="16sp"
+                android:padding="8dp"
+                android:textColor="@color/font"
+                android:letterSpacing="0.01"
+                android:background="@drawable/bg_dash"
+               />
 
-            <Button
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="25dp"
                 android:drawableTop="@mipmap/ic_camera"
                 android:fontFamily="@font/manrope_bold"
-                android:text="Goverment Card"
-                android:textSize="20sp"/>
+                android:text="Goverment ID"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:padding="8dp"
+                android:textColor="@color/font"
+                android:letterSpacing="0.01"
+                android:background="@drawable/bg_dash"
+                />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="20dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="34dp"
+            >
 
             <Button
                 android:layout_width="0dp"
-                android:layout_height="60dp"
+                android:layout_height="50dp"
                 android:layout_weight="1"
-                android:layout_marginRight="30dp"
+                android:letterSpacing="0.06"
+                android:layout_marginRight="20dp"
+                android:background="#0D1B2A"
                 android:fontFamily="@font/manrope_semibold"
                 android:text="Renters"
                 android:textSize="20sp"
-                android:textColor="@color/font"
-                android:background="@drawable/bg_outer"/>
+                android:textColor="@color/font"/>
 
             <Button
                 android:layout_width="0dp"
-                android:layout_height="60dp"
+                android:layout_height="50dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/manrope_semibold"
                 android:text="Landords"
+                android:letterSpacing="0.06"
+                android:background="#0D1B2A"
                 android:textSize="20sp"
-                android:textColor="@color/font"
-                android:background="@drawable/bg_outer"/>
+                android:textColor="@color/font"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="25dp"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/btnlogin"
-                android:layout_width="0dp"
-                android:layout_height="70dp"
-                android:layout_marginEnd="50dp"
-                android:layout_weight="1"
-                android:background="@drawable/btn_bg"
-                android:fontFamily="@font/manrope_bold"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:background="#0D1B2A"
+                android:fontFamily="@font/manrope_semibold"
                 android:letterSpacing="0.06"
                 android:text="Login"
                 android:textColor="@color/font"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
 
             <Button
-                android:layout_width="0dp"
-                android:layout_height="70dp"
-                android:layout_weight="1"
-                android:background="@drawable/btn_bg"
-                android:fontFamily="@font/manrope_bold"
+                android:id="@+id/btnregister"
+                android:layout_marginTop="16dp"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:background="@drawable/bg_input"
+                android:fontFamily="@font/manrope_semibold"
                 android:letterSpacing="0.03"
                 android:text="Register"
-                android:textColor="@color/font"
-                android:textSize="20sp" />
+                android:textColor="@color/background"
+                android:textSize="16dp" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
