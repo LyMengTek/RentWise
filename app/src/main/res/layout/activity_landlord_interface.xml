@@ -35,7 +35,8 @@
                     android:fontFamily="@font/manrope_bold"
                     android:text="Hello, Name"
                     android:textColor="@color/blue_dark"
-                    android:textSize="18sp" />
+                    android:textSize="24sp"
+                    android:letterSpacing="0.03"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -43,7 +44,8 @@
                     android:fontFamily="@font/manrope_semibold"
                     android:text="View Profile >"
                     android:textColor="@color/font"
-                    android:textSize="12sp" />
+                    android:textSize="16sp"
+                    android:letterSpacing="0.03"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -67,7 +69,8 @@
                     android:fontFamily="@font/manrope_bold"
                     android:text="Room Vacancy"
                     android:textColor="@color/font"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:letterSpacing="0.03"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -75,7 +78,7 @@
                     android:fontFamily="@font/manrope_semibold"
                     android:text="5"
                     android:textColor="@color/font"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -99,7 +102,8 @@
                     android:fontFamily="@font/manrope_semibold"
                     android:text="123456"
                     android:textColor="@color/font"
-                    android:textSize="20sp" />
+                    android:textSize="16sp"
+                    android:letterSpacing="0.03"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -143,7 +147,9 @@
                             android:fontFamily="@font/manrope_semibold"
                             android:text="Calculate Bill"
                             android:textAlignment="center"
-                            android:textColor="@color/font" />
+                            android:textColor="@color/font"
+                            android:textSize="16sp"
+                            android:letterSpacing="0.03"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -168,7 +174,8 @@
                             android:text="Set Up Property"
                             android:textAlignment="center"
                             android:textColor="@color/font"
-                            android:textSize="15dp" />
+                            android:textSize="16dp"
+                            android:letterSpacing="0.03"/>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -201,7 +208,9 @@
                         android:layout_gravity="center"
                         android:fontFamily="@font/manrope_semibold"
                         android:text="Show Invoice"
-                        android:textColor="@color/font" />
+                        android:textColor="@color/font"
+                        android:textSize="16sp"
+                        android:letterSpacing="0.03"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -225,7 +234,9 @@
                         android:layout_gravity="center"
                         android:fontFamily="@font/manrope_semibold"
                         android:text="Show Contact"
-                        android:textColor="@color/font" />
+                        android:textColor="@color/font"
+                        android:textSize="16sp"
+                        android:letterSpacing="0.03"/>
                 </LinearLayout>
 
             </LinearLayout>
