@@ -16,7 +16,7 @@ class MainActivity : ComponentActivity() {
         setContentView(binding.root)
 
         // Set click listener on the "Register" button
-        binding.register.setOnClickListener {
+        binding.btnregister.setOnClickListener {
             // Navigate to the RegisterPageActivity
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
