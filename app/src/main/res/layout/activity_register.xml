@@ -5,7 +5,7 @@
     android:background="@color/background">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="10dp">
@@ -62,7 +62,7 @@
                     android:fontFamily="@font/manrope_semibold"
                     android:text="Lastname"
                     android:textColor="@color/font"
-                    android:textSize="25sp"></TextView>
+                    android:textSize="25sp"/>
 
                 <EditText
                     android:layout_width="match_parent"
@@ -85,7 +85,7 @@
                 android:fontFamily="@font/manrope_semibold"
                 android:text="Phone Number"
                 android:textColor="@color/font"
-                android:textSize="25sp"></TextView>
+                android:textSize="25sp"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -172,21 +172,21 @@
             android:orientation="vertical">
 
             <Button
-                android:layout_width="500dp"
-                android:layout_height="90dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp"
-                android:drawableLeft="@drawable/camera"
+                android:drawableTop="@mipmap/ic_camera"
                 android:fontFamily="@font/manrope_bold"
                 android:text="Profile Picture"
-                android:textSize="16pt"></Button>
+                android:textSize="20sp"/>
 
             <Button
-                android:layout_width="500dp"
-                android:layout_height="90dp"
-                android:drawableLeft="@drawable/camera"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableTop="@mipmap/ic_camera"
                 android:fontFamily="@font/manrope_bold"
                 android:text="Goverment Card"
-                android:textSize="16pt"></Button>
+                android:textSize="20sp"/>
         </LinearLayout>
 
         <LinearLayout
