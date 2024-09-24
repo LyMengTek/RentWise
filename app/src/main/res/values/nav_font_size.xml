@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Custom text appearance for BottomNavigationView menu items -->
+    <style name="nav_font_size" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">18sp</item> <!-- Change text size here -->
+        <item name="fontFamily">@font/manrope_bold</item>
+    </style>
+</resources>
