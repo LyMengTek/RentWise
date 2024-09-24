@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_gravity="center"
-        android:padding="30dp">
+        android:padding="10dp">
 
         <TextView
             android:layout_width="match_parent"
