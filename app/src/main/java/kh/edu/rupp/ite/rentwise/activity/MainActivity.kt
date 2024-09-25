@@ -1,10 +1,13 @@
-package kh.edu.rupp.ite.rentwise
+package kh.edu.rupp.ite.rentwise.activity
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import kh.edu.rupp.ite.rentwise.databinding.ActivityLoginBinding
 import android.widget.Toast
+import kh.edu.rupp.ite.rentwise.api.LoginRequest
+import kh.edu.rupp.ite.rentwise.api.LoginResponse
+import kh.edu.rupp.ite.rentwise.api.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

@@ -1,4 +1,4 @@
-package kh.edu.rupp.ite.rentwise
+package kh.edu.rupp.ite.rentwise.api
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

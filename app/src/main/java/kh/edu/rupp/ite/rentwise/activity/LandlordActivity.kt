@@ -1,11 +1,8 @@
-package kh.edu.rupp.ite.rentwise
+package kh.edu.rupp.ite.rentwise.activity
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import kh.edu.rupp.ite.rentwise.databinding.ActivityLandlordInterfaceBinding
-import kh.edu.rupp.ite.rentwise.databinding.ActivityLoginBinding
-import kh.edu.rupp.ite.rentwise.databinding.ActivityRegisterBinding
 
 class LandlordActivity : ComponentActivity() {
 
