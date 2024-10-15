@@ -17,10 +17,9 @@
         tools:targetApi="31">
 
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.ContactActivity"
             android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.RentWise">
+            android:theme="@style/Base.Theme.RentWise">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,15 +27,22 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".activity.CalculatorBillActivity"
-            android:exported="true"
-            android:theme="@style/Base.Theme.RentWise" />
+<!--        <activity-->
+<!--            android:name=".activity.MainActivity"-->
+<!--            android:exported="true"-->
+<!--            android:label="@string/app_name"-->
+<!--            android:theme="@style/Theme.RentWise">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-
-        <activity android:name=".activity.LandlordActivity" />
-
-
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
+<!--        <activity-->
+<!--            android:name=".activity.CalculatorBillActivity"-->
+<!--            android:exported="true"-->
+<!--            android:theme="@style/Base.Theme.RentWise" />-->
+<!--        <activity android:name=".activity.LandlordActivity" />-->
     </application>
 
 </manifest>

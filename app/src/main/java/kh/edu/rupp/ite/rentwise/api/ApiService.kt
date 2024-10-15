@@ -2,6 +2,7 @@ package kh.edu.rupp.ite.rentwise.api
 
 //import kh.edu.rupp.ite.rentwise.Room
 import kh.edu.rupp.ite.rentwise.model.Invoice
+import kh.edu.rupp.ite.rentwise.model.User
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -20,5 +21,8 @@ interface ApiService {
     // GET request to fetch rooms
     @GET("/api/invoice")
     fun getDueRoom(): Call<List<Invoice>>
+
+    @GET("/api/user/1")
+    fun getUser(): Call<User>
 
 }
