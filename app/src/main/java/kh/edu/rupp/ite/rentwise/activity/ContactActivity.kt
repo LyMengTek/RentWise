@@ -1,25 +1,26 @@
 package kh.edu.rupp.ite.rentwise.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import kh.edu.rupp.ite.rentwise.R
-import kh.edu.rupp.ite.rentwise.adapter.BillingAdapter
 import kh.edu.rupp.ite.rentwise.adapter.ContactAdapter
 import kh.edu.rupp.ite.rentwise.api.RetrofitClient
 import kh.edu.rupp.ite.rentwise.databinding.ActivityContactBinding
+import kh.edu.rupp.ite.rentwise.model.State
 import kh.edu.rupp.ite.rentwise.model.User
-import retrofit2.Call
-import retrofit2.Response
+import kh.edu.rupp.ite.rentwise.viewmodel.ContactViewModel
+import kotlinx.coroutines.launch
 
 class ContactActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityContactBinding;
+    private val viewModel = ContactViewModel()
+
+    private lateinit var binding: ActivityContactBinding
     private lateinit var contactAdapter: ContactAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,8 +29,27 @@ class ContactActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupRecyclerView()
+        loadUserContact() // Call to load user data on activity start
 
-        showContact()
+        viewModel.dueContactState.observe(this) { dueRoomState ->
+            when (dueRoomState.state) {
+                State.loading -> showLoading()
+                State.success -> {
+                    hideLoading()
+                    // Wrap data in a list if dueRoomState.data is not null
+                    displayDueRoom(listOf(dueRoomState.data!!))
+                }
+                State.error -> {
+                    hideLoading()
+                    showErrorContent()
+                }
+            }
+        }
+
+        binding.backToHome.setOnClickListener {
+            val intent = Intent(this, LandlordActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun setupRecyclerView() {
@@ -38,32 +58,45 @@ class ContactActivity : AppCompatActivity() {
         binding.contactRecyclerview.adapter = contactAdapter
     }
 
-    private fun showContact(){
-        RetrofitClient.instance.getUser().enqueue(object : retrofit2.Callback<User> {
-            override fun onResponse(call: Call<User>, response: Response<User>) {
-                if(response.isSuccessful){
-                    val user = response.body()
-                    Log.d("ContactActivity", "User: $user")
-                    user?.let {
-                        // Handle the user object here
-                        contactAdapter.setUser(listOf(it))
-                    }
-                } else {
-                    Toast.makeText(
-                        this@ContactActivity,
-                        "Error while loading data from server",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-
-            override fun onFailure(call: Call<User>, t: Throwable) {
+    private fun loadUserContact() {
+        lifecycleScope.launch {
+            try {
+                // Retrieve user data from API
+                val user = RetrofitClient.instance.getUser()
+                Log.d("ContactActivity", "User: $user")
+                // Update the adapter with the user data as a single-item list
+                contactAdapter.setUser(listOf(user))
+                contactAdapter.notifyDataSetChanged()
+            } catch (e: Exception) {
                 Toast.makeText(
                     this@ContactActivity,
-                    "Error: ${t.message}",
+                    "Error: ${e.message}",
                     Toast.LENGTH_SHORT
                 ).show()
             }
-        })
+        }
+    }
+
+    private fun showLoading() {
+        binding.contactRecyclerview.visibility = View.GONE
+        binding.progressBar.visibility = View.VISIBLE
+    }
+
+    private fun hideLoading() {
+        binding.progressBar.visibility = View.GONE
+        binding.contactRecyclerview.visibility = View.VISIBLE
+    }
+
+    private fun displayDueRoom(data: List<User>) {
+        contactAdapter.setUser(data)
+        contactAdapter.notifyDataSetChanged()
+    }
+
+    private fun showErrorContent() {
+        Toast.makeText(
+            this,
+            "An error occurred. Please try again.",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 }

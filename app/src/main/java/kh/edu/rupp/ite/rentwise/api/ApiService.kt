@@ -16,13 +16,13 @@ data class LoginResponse(val token: String, val userId: String)
 // Interface defining the API endpoints
 interface ApiService {
     @POST("/api/login")  // Endpoint for login
-    fun loginUser(@Body request: LoginRequest): Call<LoginResponse>
+   fun loginUser(@Body request: LoginRequest): Call<LoginResponse>
 
     // GET request to fetch rooms
     @GET("/api/invoice")
-    fun getDueRoom(): Call<List<Invoice>>
+    suspend fun getDueRoom(): List<Invoice>
 
     @GET("/api/user/1")
-    fun getUser(): Call<User>
+    suspend fun getUser(): User
 
 }
