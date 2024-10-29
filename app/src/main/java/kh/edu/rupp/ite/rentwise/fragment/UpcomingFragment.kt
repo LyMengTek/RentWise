@@ -37,7 +37,7 @@ class UpcomingFragment : Fragment() {
 
         setupRecyclerView()
 
-        lordUpcomingRoom()
+//        lordUpcomingRoom()
     }
 
     private fun setupRecyclerView(){
@@ -46,29 +46,29 @@ class UpcomingFragment : Fragment() {
         binding.upcomingRecyclerview.adapter = upcomingAdapter
     }
 
-    private fun lordUpcomingRoom(){
-        RetrofitClient.instance.getDueRoom().enqueue(object : retrofit2.Callback<List<Invoice>>{
-            override fun onResponse(call: Call<List<Invoice>>, response: Response<List<Invoice>>) {
-                if (response.isSuccessful){
-                    val invoice = response.body() ?: listOf()
-                    upcomingAdapter.setInvoice(invoice)
-                }else{
-                    Toast.makeText(
-                        requireContext(),
-                        "Error while loading data from server",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-
-            override fun onFailure(call: Call<List<Invoice>>, t: Throwable) {
-                Toast.makeText(
-                    requireContext(),
-                    "Error: ${t.message}",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-
-        })
-    }
+//    private fun lordUpcomingRoom(){
+//        RetrofitClient.instance.getDueRoom().enqueue(object : retrofit2.Callback<List<Invoice>>{
+//            override fun onResponse(call: Call<List<Invoice>>, response: Response<List<Invoice>>) {
+//                if (response.isSuccessful){
+//                    val invoice = response.body() ?: listOf()
+//                    upcomingAdapter.setInvoice(invoice)
+//                }else{
+//                    Toast.makeText(
+//                        requireContext(),
+//                        "Error while loading data from server",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<List<Invoice>>, t: Throwable) {
+//                Toast.makeText(
+//                    requireContext(),
+//                    "Error: ${t.message}",
+//                    Toast.LENGTH_SHORT
+//                ).show()
+//            }
+//
+//        })
+//    }
 }

@@ -11,15 +11,16 @@ import kh.edu.rupp.ite.rentwise.adapter.BillingAdapter
 import kh.edu.rupp.ite.rentwise.api.RetrofitClient
 import kh.edu.rupp.ite.rentwise.databinding.FragmentBillingBinding
 import kh.edu.rupp.ite.rentwise.model.Invoice
+import kh.edu.rupp.ite.rentwise.model.State
+import kh.edu.rupp.ite.rentwise.viewmodel.BillingViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class BillingFragment : Fragment() {
 
-    private var _binding: FragmentBillingBinding? = null
-    private val binding get() = _binding!!
-
+    private val viewModel = BillingViewModel()
+    private lateinit var binding: FragmentBillingBinding
     private lateinit var billingAdapter: BillingAdapter
 
     override fun onCreateView(
@@ -27,7 +28,7 @@ class BillingFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentBillingBinding.inflate(inflater, container, false)
+        binding = FragmentBillingBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -37,8 +38,20 @@ class BillingFragment : Fragment() {
         // Initialize RecyclerView and Adapter
         setupRecyclerView()
 
-        // Fetch data after the view is created
-        loadDueRoom()
+        viewModel.dueRoomState.observe(viewLifecycleOwner){ dueRoomState ->
+            when(dueRoomState.state){
+                State.loading -> showLoading()
+                State.success -> {
+                    hideLoading()
+                    displayDueRoom(dueRoomState.data!!)
+                }
+                State.error -> {
+                    hideLoading()
+                    showErrorContent()
+                }
+            }
+        }
+        viewModel.loadDueRoom()
     }
 
     private fun setupRecyclerView() {
@@ -47,33 +60,23 @@ class BillingFragment : Fragment() {
         binding.billingRecyclerview.adapter = billingAdapter
     }
 
-    private fun loadDueRoom() {
-        RetrofitClient.instance.getDueRoom().enqueue(object : Callback<List<Invoice>> {
-            override fun onResponse(call: Call<List<Invoice>>, response: Response<List<Invoice>>) {
-                if (response.isSuccessful) {
-                    val invoices = response.body() ?: listOf() // Fallback to an empty list if null
-                    billingAdapter.setInvoice(invoices) // Update the adapter with the fetched data
-                } else {
-                    Toast.makeText(
-                        requireContext(),
-                        "Error while loading data from server",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-
-            override fun onFailure(call: Call<List<Invoice>>, t: Throwable) {
-                Toast.makeText(
-                    requireContext(),
-                    "Error: ${t.message}",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        })
+    private fun displayDueRoom(dueRoom: List<Invoice>){
+        billingAdapter.setInvoice(dueRoom)
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun showLoading() {
+        binding.billingRecyclerview.visibility = View.GONE
+        binding.billProgressBar.visibility = View.VISIBLE
     }
+
+    private fun hideLoading() {
+        binding.billProgressBar.visibility = View.GONE
+        binding.billingRecyclerview.visibility = View.VISIBLE
+    }
+
+    private fun showErrorContent() {
+        binding.billingRecyclerview.visibility = View.GONE
+        binding.billError.visibility = View.VISIBLE
+    }
+
 }

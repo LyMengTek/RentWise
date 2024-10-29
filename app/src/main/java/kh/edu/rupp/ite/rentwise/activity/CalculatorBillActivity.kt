@@ -1,5 +1,6 @@
 package kh.edu.rupp.ite.rentwise.activity
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -21,7 +22,7 @@ class CalculatorBillActivity : AppCompatActivity() {
 
         // Set up the initial fragment
         if (savedInstanceState == null) {
-            replaceFragment(BillingFragment()) // Load the default fragment
+            replaceFragment(BillingFragment()) // Load the default fragmentt
         }
 
         // Set up BottomNavigationView listener
@@ -37,6 +38,11 @@ class CalculatorBillActivity : AppCompatActivity() {
                 }
                 else -> false
             }
+        }
+
+        binding.backToHome.setOnClickListener {
+            val intent = Intent(this, LandlordActivity::class.java)
+            startActivity(intent)
         }
     }
 

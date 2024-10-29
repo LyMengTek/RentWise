@@ -1,5 +1,6 @@
 package kh.edu.rupp.ite.rentwise.activity
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import kh.edu.rupp.ite.rentwise.databinding.ActivityLandlordInterfaceBinding
@@ -13,6 +14,11 @@ class LandlordActivity : ComponentActivity() {
 
         binding = ActivityLandlordInterfaceBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.calBillHomeBtn.setOnClickListener {
+            val intent = Intent(this, CalculatorBillActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 

@@ -20,7 +20,7 @@ interface ApiService {
 
     // GET request to fetch rooms
     @GET("/api/invoice")
-    fun getDueRoom(): Call<List<Invoice>>
+    suspend fun getDueRoom(): List<Invoice>
 
     @GET("/api/user/1")
     fun getUser(): Call<User>

@@ -45,7 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_marginLeft="34dp"
                 android:layout_marginRight="34dp"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:background="@drawable/bg_input"
                 android:padding="16dp"
                 android:hint="Enter Email"
@@ -84,7 +84,7 @@
                     android:layout_marginLeft="34dp"
                     android:layout_marginRight="34dp"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/bg_input"
                     android:hint="Enter Password"
                     android:inputType="textPassword" />
