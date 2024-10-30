@@ -60,6 +60,7 @@
                     app:cardPreventCornerOverlap="true">
 
                     <ImageView
+                        android:id="@+id/profileImage"
                         android:layout_width="108dp"
                         android:layout_height="108dp"
                         android:scaleType="centerCrop"
@@ -67,6 +68,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <TextView
+                    android:id="@+id/profileUsername"
                     android:letterSpacing="0.03"
                     android:layout_gravity="center_horizontal"
                     android:layout_width="wrap_content"
@@ -124,12 +126,13 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/profileEmail"
                 android:layout_marginLeft="24dp"
                 android:layout_marginBottom="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Emai : Lymeng@gmail.com"
+                android:text="Email : Lymeng@gmail.com"
                 android:textColor="@color/white"
                 android:textSize="16dp"
                 android:letterSpacing="0.05" />
@@ -195,6 +198,28 @@
 
         </LinearLayout>
 
+        <!-- Error Layout (overlayed on top of RecyclerView) -->
+        <LinearLayout
+            android:id="@+id/error"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fail to load Data" />
+        </LinearLayout>
+
+        <!-- ProgressBar (overlayed on top of RecyclerView) -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="visible" />
 
     </LinearLayout>
 

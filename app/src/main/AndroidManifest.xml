@@ -35,6 +35,11 @@
             android:theme="@style/Base.Theme.RentWise" />
 
         <activity
+            android:name=".activity.ProfileActivity"
+            android:exported="true"
+            android:theme="@style/Base.Theme.RentWise" />
+
+        <activity
             android:name=".activity.LandlordActivity"
             android:exported="true">
             <intent-filter>

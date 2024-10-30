@@ -30,6 +30,11 @@ class LandlordActivity : ComponentActivity() {
             startActivity(intent)
         }
 
+        binding.viewProfile.setOnClickListener {
+            val intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
 }
