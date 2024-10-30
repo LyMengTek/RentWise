@@ -39,6 +39,11 @@
             android:theme="@style/Base.Theme.RentWise" />
 
         <activity
+            android:name=".activity.ProfileActivity"
+            android:exported="true"
+            android:theme="@style/Base.Theme.RentWise" />
+
+        <activity
             android:name=".activity.landloard_setup.SetupRoomTypeAndPricingActivity"
             android:exported="true"
             android:theme="@style/Base.Theme.RentWise" />

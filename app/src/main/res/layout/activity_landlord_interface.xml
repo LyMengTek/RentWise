@@ -39,6 +39,7 @@
                     android:letterSpacing="0.03"/>
 
                 <TextView
+                    android:id="@+id/viewProfile"
                     android:letterSpacing="0.03"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
