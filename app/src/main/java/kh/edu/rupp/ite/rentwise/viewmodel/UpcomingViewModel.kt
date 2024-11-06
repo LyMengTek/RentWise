@@ -12,27 +12,25 @@ import kh.edu.rupp.ite.rentwise.model.State
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class BillingViewModel : ViewModel() {
+class UpcomingViewModel : ViewModel() {
+    
+    private val _upcomingState = MutableLiveData<ApiState<List<Invoice>>>()
+    val upcomingState: LiveData<ApiState<List<Invoice>>> get() = _upcomingState
 
-    private val _dueRoomState = MutableLiveData<ApiState<List<Invoice>>>()
-    val dueRoomState: LiveData<ApiState<List<Invoice>>> get() = _dueRoomState
-
-    fun loadDueRoom() {
+    fun lordUpcomingRoom() {
         viewModelScope.launch {
             try {
                 delay(3000)
-                val dueRoomResponse: ApiResponse<List<Invoice>> =
+                val upcomingResponse: ApiResponse<List<Invoice>> =
                     RetrofitClient.instance.getDueRoom()
-                if (dueRoomResponse.status == "success") {
-                    _dueRoomState.postValue(ApiState(State.success, dueRoomResponse.data))
+                if (upcomingResponse.status == "success") {
+                    _upcomingState.postValue(ApiState(State.success, upcomingResponse.data))
                 } else {
-                    _dueRoomState.postValue(ApiState(State.error, null))
+                    _upcomingState.postValue(ApiState(State.error, null))
                 }
             } catch (ex: Exception) {
-                _dueRoomState.postValue(ApiState(State.error, null))
+                _upcomingState.postValue(ApiState(State.error, null))
             }
         }
-
     }
-
 }

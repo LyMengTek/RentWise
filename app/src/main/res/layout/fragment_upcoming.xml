@@ -12,4 +12,26 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <!-- Error Layout (overlayed on top of RecyclerView) -->
+    <LinearLayout
+        android:id="@+id/upcomingError"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fail to load Data" />
+    </LinearLayout>
+
+    <!-- ProgressBar (overlayed on top of RecyclerView) -->
+    <ProgressBar
+        android:id="@+id/upcomingProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="visible" />
 </FrameLayout>

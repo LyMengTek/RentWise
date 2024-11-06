@@ -4,18 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import kh.edu.rupp.ite.rentwise.adapter.BillingAdapter
-import kh.edu.rupp.ite.rentwise.api.RetrofitClient
 import kh.edu.rupp.ite.rentwise.databinding.FragmentBillingBinding
 import kh.edu.rupp.ite.rentwise.model.Invoice
 import kh.edu.rupp.ite.rentwise.model.State
 import kh.edu.rupp.ite.rentwise.viewmodel.BillingViewModel
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class BillingFragment : Fragment() {
 

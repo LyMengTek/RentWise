@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="16dp">
@@ -9,25 +10,36 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bg_both"
         android:padding="18dp">
+
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="0.5"
             android:layout_height="wrap_content"
+            android:layout_weight="0.5"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/upcomingProfile"
+            <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@drawable/bg_circle"
-                android:src="@mipmap/ic_person" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                app:cardCornerRadius="100dp"
+                app:cardElevation="4dp"
+                app:cardPreventCornerOverlap="true">
+
+                <ImageView
+                    android:id="@+id/upcomingProfile"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/bg_circle"
+                    android:src="@mipmap/ic_person" />
+            </androidx.cardview.widget.CardView>
 
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
@@ -35,8 +47,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/manrope_semibold"
-                android:text="UserName"
                 android:letterSpacing="0.08"
+                android:text="UserName"
                 android:textColor="@color/font"
                 android:textSize="16sp" />
 
@@ -44,6 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <TextView
                     android:id="@+id/upcomingFloor"
                     android:layout_width="wrap_content"
@@ -58,9 +71,9 @@
                     android:id="@+id/upcomingRoom"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
                     android:fontFamily="@font/manrope_bold"
                     android:gravity="center"
-                    android:layout_marginStart="8dp"
                     android:text="Room: 1"
                     android:textColor="@color/font"
                     android:textSize="16sp" />
@@ -68,10 +81,11 @@
 
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
 
