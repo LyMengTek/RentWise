@@ -61,7 +61,7 @@ class ProfileActivity : AppCompatActivity() {
             binding.profileUsername.text = user.username
             binding.profileEmail.text = user.email
             Picasso.get()
-                .load(user.profilePicture)
+                .load(user.profile_picture)
                 .into(binding.profileImage);
         } ?: run {
             Toast.makeText(this, "Failed to load profile", Toast.LENGTH_SHORT).show()
