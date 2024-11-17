@@ -16,26 +16,45 @@
         android:theme="@style/Theme.RentWise"
         tools:targetApi="31">
 
-
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.login_register.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.RentWise">
         </activity>
 
         <activity
-            android:name=".activity.CalculatorBillActivity"
+            android:name=".activity.other.CalculatorBillActivity"
+            android:exported="true"
+            android:theme="@style/Base.Theme.RentWise" />
+
+<!--        <activity-->
+<!--            android:name=".activity.landloard_setup.SetupRoomTypeAndPricingActivity"-->
+<!--            android:exported="true"-->
+<!--            android:theme="@style/Base.Theme.RentWise" />-->
+
+        <activity
+            android:name=".activity.other.ContactActivity"
             android:exported="true"
             android:theme="@style/Base.Theme.RentWise" />
 
         <activity
-            android:name=".activity.ContactActivity"
+            android:name=".activity.landloard_setup.SetupRoomTypeAndPricingActivity"
             android:exported="true"
             android:theme="@style/Base.Theme.RentWise" />
 
         <activity
-            android:name=".activity.LandlordActivity"
+            android:name=".activity.landloard_setup.ShowRoomSetupOptionsActivity"
+            android:exported="true"
+            android:theme="@style/Base.Theme.RentWise" />
+
+        <activity
+            android:name=".activity.landloard_setup.AssignRoomActivity"
+            android:exported="true"
+            android:theme="@style/Base.Theme.RentWise" />
+
+        <activity
+            android:name=".activity.login_register.LandlordActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

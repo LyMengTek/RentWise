@@ -1,10 +1,11 @@
-package kh.edu.rupp.ite.rentwise.activity
+package kh.edu.rupp.ite.rentwise.activity.other
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import kh.edu.rupp.ite.rentwise.R
+import kh.edu.rupp.ite.rentwise.activity.login_register.LandlordActivity
 import kh.edu.rupp.ite.rentwise.databinding.ActivityCalculatingBillBinding
 import kh.edu.rupp.ite.rentwise.fragment.BillingFragment
 import kh.edu.rupp.ite.rentwise.fragment.UpcomingFragment

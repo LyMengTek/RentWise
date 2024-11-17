@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <LinearLayout
+        android:layout_marginBottom="32dp"
+        android:id="@+id/backToHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/ic_arrow" />
+<!--            android:tint="@color/title" />-->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:fontFamily="@font/manrope_bold"
+            android:letterSpacing="0.03"
+            android:paddingStart="8dp"
+            android:text="Room Setup Options"
+            android:textColor="@color/title"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/setupRoomTypeAndPricing"
+        android:layout_margin="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginVertical="25dp"
+        android:background="@drawable/bg_both"
+        android:gravity="center"
+        android:padding="20dp">
+
+        <TextView
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:text="Set up type of room" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/assignRoomToRoomType"
+        android:layout_margin="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginVertical="25sp"
+        android:background="@drawable/bg_both"
+        android:gravity="center"
+        android:padding="20dp">
+
+        <TextView
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:text="Assign Room" />
+
+    </LinearLayout>
+
+</LinearLayout>

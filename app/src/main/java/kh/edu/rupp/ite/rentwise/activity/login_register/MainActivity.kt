@@ -1,4 +1,4 @@
-package kh.edu.rupp.ite.rentwise.activity
+package kh.edu.rupp.ite.rentwise.activity.login_register
 
 import android.content.Intent
 import android.os.Bundle

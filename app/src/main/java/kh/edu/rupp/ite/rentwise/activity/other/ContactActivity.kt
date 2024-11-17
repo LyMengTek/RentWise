@@ -1,4 +1,4 @@
-package kh.edu.rupp.ite.rentwise.activity
+package kh.edu.rupp.ite.rentwise.activity.other
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import kh.edu.rupp.ite.rentwise.R
+import kh.edu.rupp.ite.rentwise.activity.login_register.LandlordActivity
 import kh.edu.rupp.ite.rentwise.adapter.ContactAdapter
 import kh.edu.rupp.ite.rentwise.api.RetrofitClient
 import kh.edu.rupp.ite.rentwise.databinding.ActivityContactBinding

@@ -2,8 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
-    android:orientation="vertical">
+    android:background="@color/background">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,188 +10,239 @@
         android:orientation="vertical"
         android:padding="10dp">
 
+        <!-- Set up Room Navigator -->
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/backAccount"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="8dp"
+            android:gravity="center"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="10dp"
-            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center_vertical"
-                android:src="@mipmap/ic_arrow" />
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/back" />
 
             <TextView
+                android:layout_marginStart="8dp"
+                android:letterSpacing="0.05"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:fontFamily="@font/manrope_bold"
-                android:paddingStart="8dp"
-                android:letterSpacing="0.03"
-                android:text="Set Up Room"
-                android:textColor="@color/font"
+                android:textStyle="bold"
+                android:textColor="#42A9E8"
+                android:text="Rentwise's Setup Room"
                 android:textSize="24sp" />
 
         </LinearLayout>
 
+        <!-- Set up Water Price and Room Price -->
         <LinearLayout
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_light"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="15dp"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/manrope_semibold"
-                android:text="Description"
-                android:textColor="@color/font"
-                android:textSize="20sp"
-                android:letterSpacing="0.03"/>
+            <!-- Room Type and Price Setup -->
+            <LinearLayout
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:paddingStart="16dp"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/bg_input"
-                android:hint="Enter Description"
-                android:inputType="text" />
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_marginStart="4dp"
+                        android:textSize="16sp"
+                        android:textColor="@color/white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Room Type" />
+
+                    <EditText
+                        android:layout_marginStart="8dp"
+                        android:id="@+id/room_type_input"
+                        android:layout_width="60dp"
+                        android:padding="4dp"
+                        android:layout_height="28dp"
+                        android:background="@drawable/bg_input"
+                        android:hint="00"
+                        android:inputType="number" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:paddingStart="8dp"
+                    android:id="@+id/room_price_setup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+
+            </LinearLayout>
+
+            <!-- Water and Electricity Prices -->
+            <LinearLayout
+                android:layout_marginStart="8dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Water price: " />
+
+                    <EditText
+                        android:layout_marginStart="8dp"
+                        android:id="@+id/editTextWaterPrice"
+                        android:layout_width="60dp"
+                        android:padding="4dp"
+                        android:layout_height="28dp"
+                        android:background="@drawable/bg_input"
+                        android:hint="00"
+                        android:inputType="number" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Electricity Price: "
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/editTextElectricityPrice"
+                        android:layout_width="60dp"
+                        android:layout_height="28dp"
+                        android:minHeight="48dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/bg_input"
+                        android:hint="00"
+                        android:inputType="number"
+                        android:padding="4dp" />
+
+                </LinearLayout>
+            </LinearLayout>
 
         </LinearLayout>
 
+        <!-- Additional Input Fields for Floor Number and Number of Rooms -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="15dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="10dp">
 
-            <TextView
+            <!-- Input Fields Container -->
+            <LinearLayout
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_light"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/manrope_semibold"
-                android:text="Floor"
-                android:textColor="@color/font"
-                android:textSize="20sp"
-                android:letterSpacing="0.03"/>
+                android:orientation="vertical"
+                android:padding="16dp">
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/bg_input"
-                android:hint="Enter Floor"
-                android:inputType="number" />
+                <!-- Floor Number Input -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="16dp">
 
-        </LinearLayout>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Floor Number:"
+                        android:textSize="16sp"
+                        android:textColor="@color/white"
+                        android:layout_weight="1" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="15dp"
-            android:orientation="vertical">
+                    <EditText
+                        android:id="@+id/editTextFloor"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:padding="8dp"
+                        android:background="@drawable/bg_input"
+                        android:hint="e.g., 1"
+                        android:inputType="number" />
+                </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/manrope_semibold"
-                android:text="Room Number"
-                android:textColor="@color/font"
-                android:textSize="20sp"
-                android:letterSpacing="0.03"/>
+                <!-- Number of Rooms Input -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="16dp">
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/bg_input"
-                android:hint="Enter Room Number"
-                android:inputType="number" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Number of Rooms:"
+                        android:textSize="16sp"
+                        android:textColor="@color/white"
+                        android:layout_weight="1" />
 
-        </LinearLayout>
+                    <EditText
+                        android:id="@+id/editTextRoomCount"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:padding="8dp"
+                        android:background="@drawable/bg_input"
+                        android:hint="e.g., 3"
+                        android:inputType="number" />
+                </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="15dp"
-            android:orientation="vertical">
+            </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/manrope_semibold"
-                android:text="Room Price"
-                android:textColor="@color/font"
-                android:textSize="20sp"
-                android:letterSpacing="0.03"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/bg_input"
-                android:hint="Enter Room Price"
-                android:inputType="numberDecimal" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="15dp"
-            android:orientation="vertical">
-
-            <TextView
+            <!-- Room Price Container -->
+            <LinearLayout
+                android:id="@+id/RoomSetup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/manrope_semibold"
-                android:text="Water Price"
-                android:textColor="@color/font"
-                android:textSize="20sp"
-                android:letterSpacing="0.03"/>
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_light">
+                <!-- Dynamically added room price fields will appear here -->
+            </LinearLayout>
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/bg_input"
-                android:hint="Enter Water Price"
-                android:inputType="numberDecimal" />
+            <!-- You can add more UI components here as needed -->
 
         </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="15dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/manrope_semibold"
-                android:text="Electricity Price"
-                android:textColor="@color/font"
-                android:textSize="20sp"
-                android:letterSpacing="0.03"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/bg_input"
-                android:hint="Enter Electricity Price"
-                android:inputType="numberDecimal" />
-
-        </LinearLayout>
-
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:letterSpacing="0.03"
-            android:layout_marginVertical="20dp"
-            android:background="@drawable/btn_bg"
-            android:fontFamily="@font/manrope_bold"
-            android:text="Post Room"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
 
     </LinearLayout>
+
 </ScrollView>

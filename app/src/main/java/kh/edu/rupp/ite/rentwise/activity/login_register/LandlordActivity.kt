@@ -1,8 +1,11 @@
-package kh.edu.rupp.ite.rentwise.activity
+package kh.edu.rupp.ite.rentwise.activity.login_register
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import kh.edu.rupp.ite.rentwise.activity.other.CalculatorBillActivity
+import kh.edu.rupp.ite.rentwise.activity.other.ContactActivity
+import kh.edu.rupp.ite.rentwise.activity.landloard_setup.ShowRoomSetupOptionsActivity
 import kh.edu.rupp.ite.rentwise.databinding.ActivityLandlordInterfaceBinding
 
 class LandlordActivity : ComponentActivity() {
@@ -27,6 +30,11 @@ class LandlordActivity : ComponentActivity() {
 
         binding.calBillHomeBtn.setOnClickListener {
             val intent = Intent(this, CalculatorBillActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.SetupRoomBtn.setOnClickListener {
+            val intent = Intent(this, ShowRoomSetupOptionsActivity::class.java)
             startActivity(intent)
         }
 
