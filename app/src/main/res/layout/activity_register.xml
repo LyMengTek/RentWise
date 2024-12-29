@@ -46,6 +46,7 @@
                     android:textSize="20sp" />
 
                 <EditText
+                    android:id="@+id/risFirstname"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@drawable/bg_input"
@@ -70,6 +71,7 @@
                     android:textSize="20sp"/>
 
                 <EditText
+                    android:id="@+id/risLastname"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@drawable/bg_input"
@@ -97,7 +99,7 @@
                 android:textSize="20sp"/>
 
             <EditText
-                android:id="@+id/ris_phonenumber"
+                android:id="@+id/risPhonenumber"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:padding="16dp"
@@ -124,6 +126,7 @@
                 android:textSize="20sp" />
 
             <EditText
+                android:id="@+id/risEmail"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/bg_input"
@@ -149,6 +152,7 @@
                 android:textSize="20sp" />
 
             <EditText
+                android:id="@+id/risPassword"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/bg_input"
@@ -174,6 +178,7 @@
                 android:textSize="20sp" />
 
             <EditText
+                android:id="@+id/risConPassword"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/bg_input"
@@ -191,35 +196,66 @@
             android:layout_marginHorizontal="34dp"
             android:orientation="vertical">
 
-            <TextView
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="200dp"
                 android:layout_marginBottom="25dp"
-                android:drawableTop="@mipmap/ic_camera"
-                android:fontFamily="@font/manrope_bold"
-                android:text="Profile Picture"
-                android:gravity="center"
-                android:textSize="16sp"
-                android:padding="8dp"
-                android:textColor="@color/font"
-                android:letterSpacing="0.01"
-                android:background="@drawable/bg_dash"
-               />
+                android:background="@drawable/bg_dash">
 
-            <TextView
+                <!-- ImageView -->
+                <ImageView
+                    android:id="@+id/risProfilePicture"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="Profile Picture"
+                    android:scaleType="centerCrop" />
+
+                <!-- Text Overlay (Camera Icon + Text) -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:drawableTop="@mipmap/ic_camera"
+                    android:fontFamily="@font/manrope_bold"
+                    android:text="Profile Picture"
+                    android:gravity="center"
+                    android:textSize="16sp"
+                    android:padding="8dp"
+                    android:textColor="@color/font"
+                    android:letterSpacing="0.01" />
+            </FrameLayout>
+
+
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="200dp"
                 android:layout_marginBottom="25dp"
-                android:drawableTop="@mipmap/ic_camera"
-                android:fontFamily="@font/manrope_bold"
-                android:text="Goverment ID"
-                android:gravity="center"
-                android:textSize="16sp"
-                android:padding="8dp"
-                android:textColor="@color/font"
-                android:letterSpacing="0.01"
-                android:background="@drawable/bg_dash"
-                />
+                android:background="@drawable/bg_dash">
+
+                <!-- ImageView -->
+                <ImageView
+                    android:id="@+id/risID"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="Government ID"
+                    android:scaleType="centerCrop" />
+
+                <!-- Overlay Text with Icon -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:drawableTop="@mipmap/ic_camera"
+                    android:fontFamily="@font/manrope_bold"
+                    android:text="Government ID"
+                    android:gravity="center"
+                    android:textSize="16sp"
+                    android:padding="8dp"
+                    android:textColor="@color/font"
+                    android:letterSpacing="0.01" />
+            </FrameLayout>
+
+
         </LinearLayout>
 
         <LinearLayout
@@ -231,6 +267,7 @@
             >
 
             <Button
+                android:id="@+id/btnRenters"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_weight="1"
@@ -243,6 +280,7 @@
                 android:textColor="@color/font"/>
 
             <Button
+                android:id="@+id/btnLandlords"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_weight="1"
@@ -253,6 +291,7 @@
                 android:textSize="20sp"
                 android:textColor="@color/font"/>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
