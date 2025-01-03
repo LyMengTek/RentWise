@@ -48,10 +48,16 @@
             android:exported="true"
             android:theme="@style/Base.Theme.RentWise" />
 
+<!--        <activity-->
+<!--            android:name=".activity.landloard_setup."-->
+<!--            android:exported="true"-->
+<!--            android:theme="@style/Base.Theme.RentWise" />-->
+
         <activity
             android:name=".activity.landloard_setup.AssignRoomActivity"
             android:exported="true"
             android:theme="@style/Base.Theme.RentWise" />
+
 
         <activity
             android:name=".activity.login_register.LandlordActivity"

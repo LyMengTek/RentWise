@@ -1,61 +1,111 @@
 package kh.edu.rupp.ite.rentwise.activity.landloard_setup
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import androidx.activity.viewModels
+import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import kh.edu.rupp.ite.rentwise.adapter.AssignRoomAdapter
 import kh.edu.rupp.ite.rentwise.databinding.ActivityAssignRoomsToTypesBinding
-import kh.edu.rupp.ite.rentwise.databinding.ViewHolderRoomBinding
-import kh.edu.rupp.ite.rentwise.viewmodel.RoomType
-import kh.edu.rupp.ite.rentwise.viewmodel.RoomTypeSetupViewModel
+import kh.edu.rupp.ite.rentwise.model.setuproom.request.AssignMultipleRoomsRequest
+import kh.edu.rupp.ite.rentwise.viewmodel.DataForAssignViewModel
 
 class AssignRoomActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityAssignRoomsToTypesBinding
-    private val viewModel: RoomTypeSetupViewModel by viewModels()
+    private lateinit var viewModel: DataForAssignViewModel
+    private lateinit var adapter: AssignRoomAdapter
+    private var utilityPriceId: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAssignRoomsToTypesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Observe roomTypes LiveData
-        viewModel.roomTypes.observe(this, Observer { roomTypes ->
-            // Clear previous views if needed
-            binding.roomContainer.removeAllViews()
-
-            // Inflate view holder for each room type and add to roomContainer
-            roomTypes.forEach { roomType ->
-                val roomBinding = ViewHolderRoomBinding.inflate(LayoutInflater.from(this), binding.roomContainer, false)
-
-                // Set values from the room type
-                roomBinding.floorLabel.text = "Floor ${roomType.name}" // Example, adjust as needed
-                roomBinding.RoomLabel.text = roomType.name
-                roomBinding.editTextFloor.setText(roomType.price.toString()) // Assuming electricity price
-                roomBinding.editTextRoomCount.setText(roomType.price.toString()) // Assuming water price
-//                roomBinding.editTextDescription.setText("Description for ${roomType.name}") // Placeholder description
-
-                // Add the inflated view to the container
-                binding.roomContainer.addView(roomBinding.root)
-            }
-        })
-
-        // Optional: Call this method to set test room types
-        setTestRoomTypes()
+        setupRecyclerView() // Add this line
+        setupViewModel()
+        setupSubmitButton() // Add this line
+        observeViewModel()
 
         binding.backToHome.setOnClickListener {
-            finish() // Close activity to return to the previous screen
+            finish()
         }
     }
 
-    private fun setTestRoomTypes() {
-        // Set some test room types (you can call this when you need to initialize data)
-        val testRoomTypes = listOf(
-            RoomType("Type A", 100.0f),
-            RoomType("Type B", 150.0f),
-            RoomType("Type C", 200.0f)
-        )
-        viewModel.setRoomTypes(testRoomTypes)
+    private fun setupRecyclerView() {
+        binding.recyclerViewFloors.layoutManager = LinearLayoutManager(this)
+        adapter = AssignRoomAdapter()
+        binding.recyclerViewFloors.adapter = adapter
     }
-}
+
+    private fun setupViewModel() {
+        viewModel = ViewModelProvider(this)[DataForAssignViewModel::class.java]
+        viewModel.fetchFloorRoomData() // Remove the duplicate call
+    }
+
+        private fun observeViewModel() {
+            viewModel.setupStatusResponse.observe(this) { response ->
+                response?.let {
+                    val floors = it.floors
+                    val roomTypeNames = it.roomTypes.map { roomType -> roomType.name }
+                    adapter.updateData(floors, roomTypeNames)
+                }
+            }
+
+            viewModel.utilityPriceId.observe(this) { id ->
+                utilityPriceId = id
+                Log.d("AssignRoomActivity", "Received utility price ID: $id")
+            }
+
+            viewModel.roomTypePricesResponse.observe(this) { response ->
+                response?.let {
+                    val roomTypeNames = it.room_type_prices.map { price -> price.type }
+                    adapter.updateRoomTypes(roomTypeNames)
+                }
+            }
+
+            viewModel.isLoading.observe(this) { isLoading ->
+                binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+                binding.btnSave.isEnabled = !isLoading
+            }
+
+            viewModel.errorMessage.observe(this) { errorMessage ->
+                errorMessage?.let {
+                    Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+                    viewModel.resetErrorMessage()
+                }
+            }
+
+            viewModel.submissionSuccess.observe(this) { success ->
+                if (success) {
+                    Toast.makeText(this, "Rooms assigned successfully", Toast.LENGTH_SHORT).show()
+                    finish()
+                }
+            }
+        }
+
+        private fun setupSubmitButton() {
+            binding.btnSave.setOnClickListener {
+                if (utilityPriceId == null) {
+                    Toast.makeText(this, "Please wait for utility price setup", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+
+                val selectedRooms = adapter.getSelectedRooms(
+                    landlordId = 1,
+                    renterId = 2,
+                    utilityPriceId = utilityPriceId!!
+                )
+
+                if (selectedRooms.isEmpty()) {
+                    Toast.makeText(this, "Please select room types", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+
+                val request = AssignMultipleRoomsRequest(selectedRooms)
+                Log.d("AssignRoomActivity", "Submitting request: $request")
+                viewModel.submitRoomAssignments(request)
+            }
+        }
+    }

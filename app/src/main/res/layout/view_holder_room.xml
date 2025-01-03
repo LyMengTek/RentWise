@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
 
@@ -50,14 +50,14 @@
                 android:layout_weight="1" />
 
             <EditText
-                android:id="@+id/editTextFloor"
+                android:id="@+id/electricityUsageInput"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_weight="2"
                 android:padding="8dp"
                 android:background="@drawable/bg_input"
                 android:hint="e.g., 1"
-                android:inputType="number" />
+                android:inputType="numberDecimal" />
         </LinearLayout>
 
         <!-- Number of Rooms Input -->
@@ -77,14 +77,14 @@
                 android:layout_weight="1" />
 
             <EditText
-                android:id="@+id/editTextRoomCount"
+                android:id="@+id/waterUsageInput"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_weight="2"
                 android:padding="8dp"
                 android:background="@drawable/bg_input"
                 android:hint="e.g., 3"
-                android:inputType="number" />
+                android:inputType="numberDecimal" />
 
 
         </LinearLayout>
@@ -104,12 +104,64 @@
                 android:layout_weight="1" />
 
             <EditText
+                android:id="@+id/description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:padding="8dp"
                 android:background="@drawable/bg_input"
                 android:hint="e.g., example"
+                android:inputType="text" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingBottom="16dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Room-type :"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:layout_weight="1" />
+
+            <Spinner
+                android:id="@+id/roomTypeSpinner"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="2"
+                android:padding="8dp"
+                android:background="@drawable/bg_input"
+                android:layout_margin="16dp" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingBottom="16dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Tenent Code :"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:layout_weight="1" />
+
+            <EditText
+                android:id="@+id/tenentcode"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:padding="8dp"
+                android:background="@drawable/bg_input"
+                android:hint="e.g., 91238"
                 android:inputType="text" />
 
         </LinearLayout>

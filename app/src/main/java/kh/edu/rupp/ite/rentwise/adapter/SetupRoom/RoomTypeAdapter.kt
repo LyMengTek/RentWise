@@ -1,12 +1,12 @@
-package kh.edu.rupp.ite.rentwise.adapter
+package kh.edu.rupp.ite.rentwise.adapter.SetupRoom
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kh.edu.rupp.ite.rentwise.databinding.RoomTypeItemBinding
-import kh.edu.rupp.ite.rentwise.viewmodel.RoomType
+import kh.edu.rupp.ite.rentwise.model.setuproom.respone.RoomType
 
-class RoomTypeAdapter(private val roomTypes: List<RoomType>) : RecyclerView.Adapter<RoomTypeViewHolder>() {
+class RoomTypeAdapter(val roomTypes: List<RoomType>) : RecyclerView.Adapter<RoomTypeViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RoomTypeViewHolder {
         val binding = RoomTypeItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)

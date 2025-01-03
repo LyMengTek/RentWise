@@ -1,4 +1,4 @@
-package kh.edu.rupp.ite.rentwise.adapter
+package kh.edu.rupp.ite.rentwise.adapter.Billing
 
 import androidx.recyclerview.widget.RecyclerView
 import kh.edu.rupp.ite.rentwise.databinding.ViewHolderUpcomingBinding

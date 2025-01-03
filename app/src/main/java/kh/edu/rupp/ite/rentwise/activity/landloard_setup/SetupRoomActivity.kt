@@ -9,7 +9,7 @@
 //import com.yourpackage.network.RetrofitClient
 //import kh.edu.rupp.ite.rentwise.api.RetrofitClient
 //import kh.edu.rupp.ite.rentwise.model.setuproom.FloorRoomsRequest
-//import kh.edu.rupp.ite.rentwise.model.setuproom.RoomTypePricesRequest
+//import kh.edu.rupp.ite.rentwise.model.setuproom.request.RoomTypePricesRequest
 //import kh.edu.rupp.ite.rentwise.model.setuproom.UtilityPricesRequest
 //import okhttp3.ResponseBody
 //import retrofit2.Call

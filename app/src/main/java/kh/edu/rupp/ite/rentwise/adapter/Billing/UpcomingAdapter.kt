@@ -1,4 +1,4 @@
-package kh.edu.rupp.ite.rentwise.adapter
+package kh.edu.rupp.ite.rentwise.adapter.Billing
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

@@ -36,6 +36,23 @@
                 android:textSize="24sp" />
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/textViewDebug"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:padding="16dp"
+            android:textSize="14sp" />
+
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_centerInParent="true" />
+
+
         <LinearLayout
             android:id="@+id/setupElectricityPricing"
             android:layout_margin="16dp"

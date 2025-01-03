@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import kh.edu.rupp.ite.rentwise.activity.login_register.LandlordActivity
-import kh.edu.rupp.ite.rentwise.adapter.ContactAdapter
+import kh.edu.rupp.ite.rentwise.adapter.Contact.ContactAdapter
 import kh.edu.rupp.ite.rentwise.api.RetrofitClient
 import kh.edu.rupp.ite.rentwise.databinding.ActivityContactBinding
 import kh.edu.rupp.ite.rentwise.model.State

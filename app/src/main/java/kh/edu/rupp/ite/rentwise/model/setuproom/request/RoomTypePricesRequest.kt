@@ -1,4 +1,4 @@
-package kh.edu.rupp.ite.rentwise.model.setuproom
+package kh.edu.rupp.ite.rentwise.model.setuproom.request
 
 
 data class RoomTypePricesRequest(

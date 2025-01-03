@@ -40,19 +40,17 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewRoomTypes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:orientation="vertical" />
-
-        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewFloors"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:orientation="vertical" />
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_centerInParent="true" />
 
         <!-- Container for dynamically added room type fields -->
         <LinearLayout
@@ -74,6 +72,8 @@
             android:textColor="@color/font"
             android:textSize="16sp"
             android:layout_marginBottom="16dp"/>
+
+
 
     </LinearLayout>
 </ScrollView>
