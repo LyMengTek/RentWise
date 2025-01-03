@@ -26,7 +26,7 @@ interface ApiService {
     fun loginUser(@Body request: LoginRequest): Call<LoginResponse>
 
     @POST("/api/register")
-    suspend fun registerUser(@Body registerRequest: RegisterRequest): ApiResponse<RegisterRequest>
+    fun registerUser(@Body registerRequest: RegisterRequest): ApiResponse<RegisterRequest>
 
     // GET request to fetch rooms
     @GET("/api/invoice")
