@@ -183,6 +183,10 @@ class RegisterActivity : ComponentActivity() {
                 State.success -> {
                     Toast.makeText(this, "Registration successful!", Toast.LENGTH_LONG).show()
                     // Navigate to another screen or clear form
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+
+                    finish()
                 }
 
                 State.error -> {

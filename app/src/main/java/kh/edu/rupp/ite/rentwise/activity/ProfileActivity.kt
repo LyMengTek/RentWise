@@ -6,25 +6,17 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.squareup.picasso.Picasso
-import kh.edu.rupp.ite.rentwise.R
-import kh.edu.rupp.ite.rentwise.adapter.ContactAdapter
-import kh.edu.rupp.ite.rentwise.api.RetrofitClient
-import kh.edu.rupp.ite.rentwise.databinding.ActivityContactBinding
+import kh.edu.rupp.ite.rentwise.activity.login_register.LandlordActivity
+import kh.edu.rupp.ite.rentwise.activity.login_register.MainActivity
 import kh.edu.rupp.ite.rentwise.databinding.ActivityProfileBinding
-import kh.edu.rupp.ite.rentwise.model.ApiState
-import kh.edu.rupp.ite.rentwise.model.Invoice
 import kh.edu.rupp.ite.rentwise.model.State
 import kh.edu.rupp.ite.rentwise.model.User
-import kh.edu.rupp.ite.rentwise.viewmodel.ContactViewModel
 import kh.edu.rupp.ite.rentwise.viewmodel.ProfileViewModel
-import kotlinx.coroutines.launch
 
 class ProfileActivity : AppCompatActivity() {
-    private val viewModel = ProfileViewModel()
 
+    private lateinit var viewModel: ProfileViewModel
     private lateinit var binding: ActivityProfileBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,15 +24,38 @@ class ProfileActivity : AppCompatActivity() {
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.backAccount.setOnClickListener {
+            val intent = Intent(this, LandlordActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
 
+        // Initialize the ViewModel
+        val sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE)
+        viewModel = ProfileViewModel(sharedPreferences)
+
+        // Get the userId from intent or SharedPreferences
+        val userId = intent.getStringExtra("USER_ID") ?: getLoggedInUserId()
+
+        // Log the userId for debugging
+        Log.d("ProfileActivity", "UserId: $userId")
+
+        if (userId.isNullOrEmpty()) {
+            Toast.makeText(this, "User ID not found. Redirecting to login...", Toast.LENGTH_SHORT).show()
+            redirectToLogin()
+            return
+        }
+
+        // Load the user profile
+        viewModel.loadProfile(userId)
+
+        // Observe the profile data
         viewModel.profileState.observe(this) { profile ->
             when (profile.state) {
-
                 State.loading -> showLoading()
                 State.success -> {
                     hideLoading()
-                    // Wrap data in a list if dueRoomState.data is not null
-                    displayProfile(profile)
+                    displayProfile(profile.data)
                 }
                 State.error -> {
                     hideLoading()
@@ -48,44 +63,38 @@ class ProfileActivity : AppCompatActivity() {
                 }
             }
         }
-        viewModel.loadProfile()
-
-        binding.backAccount.setOnClickListener {
-            val intent = Intent(this, LandlordActivity::class.java)
-            startActivity(intent)
-        }
     }
 
-    private fun displayProfile(profile: ApiState<User>) {
-        profile.data?.let { user ->
-            binding.profileUsername.text = user.username
-            binding.profileEmail.text = user.email
-            Picasso.get()
-                .load(user.profile_picture)
-                .into(binding.profileImage);
-        } ?: run {
-            Toast.makeText(this, "Failed to load profile", Toast.LENGTH_SHORT).show()
+    private fun displayProfile(user: User?) {
+        user?.let {
+            binding.profileUsername.text = it.username
+            binding.profileEmail.text = it.email
+            binding.userPhonenumber.text = "Phone Number : " + it.phone_number
+            Picasso.get().load(it.profile_picture).into(binding.pictureCard)
         }
     }
-
 
     private fun showLoading() {
-
         binding.progressBar.visibility = View.VISIBLE
     }
 
     private fun hideLoading() {
         binding.progressBar.visibility = View.GONE
-
     }
 
     private fun showErrorContent() {
-        Toast.makeText(
-            this,
-            "An error occurred. Please try again.",
-            Toast.LENGTH_SHORT
-        ).show()
+        Toast.makeText(this, "Error loading profile", Toast.LENGTH_SHORT).show()
     }
 
-}
+    private fun redirectToLogin() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
 
+    // Helper function to get logged-in user ID
+    private fun getLoggedInUserId(): String? {
+        val sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE)
+        return sharedPreferences.getString("userId", null)
+    }
+}

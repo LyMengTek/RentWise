@@ -3,6 +3,7 @@ package kh.edu.rupp.ite.rentwise.activity.login_register
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import kh.edu.rupp.ite.rentwise.activity.ProfileActivity
 import kh.edu.rupp.ite.rentwise.activity.other.CalculatorBillActivity
 import kh.edu.rupp.ite.rentwise.activity.other.ContactActivity
 import kh.edu.rupp.ite.rentwise.activity.landloard_setup.ShowRoomSetupOptionsActivity
@@ -17,6 +18,9 @@ class LandlordActivity : ComponentActivity() {
 
         binding = ActivityLandlordInterfaceBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE)
+        binding.landlordName.text = "Hello, " + sharedPreferences.getString("name", null)
 
         binding.calBillHomeBtn.setOnClickListener {
             val intent = Intent(this, CalculatorBillActivity::class.java)

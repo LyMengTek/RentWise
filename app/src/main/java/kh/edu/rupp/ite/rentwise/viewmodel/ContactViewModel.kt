@@ -20,8 +20,8 @@ class ContactViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 delay(3000)
-                val user = RetrofitClient.instance.getUser() // Now returns User directly
-                _dueContactState.postValue(ApiState(State.success, user))
+//                val user = RetrofitClient.instance.getUser() // Now returns User directly
+//                _dueContactState.postValue(ApiState(State.success, user))
             } catch (e: Exception) {
                 _dueContactState.postValue(ApiState(State.error, null))
             }
