@@ -159,6 +159,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/SetupRoomBtn"
                         android:layout_width="0dp"
                         android:layout_height="130dp"
                         android:layout_margin="20dp"
@@ -254,12 +255,6 @@
 
         </LinearLayout>
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:visibility="visible" />
     </LinearLayout>
 
 
