@@ -9,4 +9,3 @@ data class User(
     val phone_number: String,
     val token: String,
 )
-
