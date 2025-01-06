@@ -2,9 +2,11 @@ package kh.edu.rupp.ite.rentwise.api
 
 import kh.edu.rupp.ite.rentwise.model.ApiResponse
 import kh.edu.rupp.ite.rentwise.model.Invoice
+import kh.edu.rupp.ite.rentwise.model.InvoiceRequest
 import kh.edu.rupp.ite.rentwise.model.LoginRequest
 import kh.edu.rupp.ite.rentwise.model.LoginResponse
 import kh.edu.rupp.ite.rentwise.model.RegisterRequest
+import kh.edu.rupp.ite.rentwise.model.Rental
 import kh.edu.rupp.ite.rentwise.model.User
 import kh.edu.rupp.ite.rentwise.model.setuproom.FloorRoomsRequest
 import kh.edu.rupp.ite.rentwise.model.setuproom.RoomTypePricesRequest
@@ -25,14 +27,17 @@ interface ApiService {
     suspend fun registerUser(@Body registerRequest: RegisterRequest): ApiResponse<RegisterRequest>
 
     // GET request to fetch rooms
-    @GET("/api/invoice")
-    suspend fun getDueRoom(): ApiResponse<List<Invoice>>
+    @GET("/api/invoice/byLandlord/{landlordId}")
+    suspend fun getInvoicesByLandlord(@Path("landlordId") landlordId: Int): ApiResponse<List<Invoice>>
+
+    @GET("/api/rentals/{id}")
+    suspend fun getRental(@Path("id") id: Int): ApiResponse<List<Rental>>
 
     @GET("/api/user/{userId}")
     suspend fun getUser(@Path("userId") userId: String): ApiResponse<User>
 
     @POST("/api/create/invoice")
-    suspend fun createInvoice(@Body invoiceData: Map<String, Any>): Any
+    suspend fun createInvoice(@Body invoiceRequest: InvoiceRequest): ApiResponse<List<Invoice>>
     // test here
 
     @POST("api/landlord-floor-rooms")

@@ -15,7 +15,15 @@ package kh.edu.rupp.ite.rentwise.model
 
 data class Room(
     val floor: Int,
-    val roomCount: Int
+    val roomCount: Int,
+    val id: Int,
+    val utility_price_id: Int,
+    val room_type_price_id: Int,
+    val user_id: Int,
+    val room_number: String,
+    val description: String,
+    val available: Boolean,
+    val room_code: Int
 )
 
 data class RoomType(
