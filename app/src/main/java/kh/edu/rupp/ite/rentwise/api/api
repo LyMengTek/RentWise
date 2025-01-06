@@ -44,4 +44,3 @@ interface ApiService {
     @GET("/api/room-details/1")
     suspend fun getFloorRoomInfo(): SetupStatusResponse
 }
-
