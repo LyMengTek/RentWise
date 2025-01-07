@@ -78,6 +78,10 @@
 
         </activity>
 
+        <activity
+            android:name=".activity.InvoiceActivity"
+            android:exported="true"
+            android:theme="@style/Base.Theme.RentWise" />
     </application>
 
 </manifest>

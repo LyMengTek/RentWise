@@ -23,7 +23,8 @@ data class Room(
     val room_number: String,
     val description: String,
     val available: Boolean,
-    val room_code: Int
+    val room_code: Int,
+    val utility_price: UtilityPrice
 )
 
 data class RoomType(

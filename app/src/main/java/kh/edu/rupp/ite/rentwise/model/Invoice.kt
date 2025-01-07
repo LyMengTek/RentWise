@@ -9,5 +9,6 @@ data class Invoice(
     val amount_due: String,
     val due_date: String,
     val paid: Boolean,
-    val rental: Rental // Matches nested object in API response
+    val rental: Rental, // Matches nested object in API response
+    val created_at: String
 )

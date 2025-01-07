@@ -3,6 +3,7 @@ package kh.edu.rupp.ite.rentwise.activity.login_register
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import kh.edu.rupp.ite.rentwise.activity.InvoiceActivity
 import kh.edu.rupp.ite.rentwise.activity.ProfileActivity
 import kh.edu.rupp.ite.rentwise.activity.other.CalculatorBillActivity
 import kh.edu.rupp.ite.rentwise.activity.other.ContactActivity
@@ -47,6 +48,10 @@ class LandlordActivity : ComponentActivity() {
             startActivity(intent)
         }
 
+        binding.showInvoiceHomeBtn.setOnClickListener {
+            val intent = Intent(this, InvoiceActivity::class.java)
+            startActivity(intent)
+        }
     }
 
 }

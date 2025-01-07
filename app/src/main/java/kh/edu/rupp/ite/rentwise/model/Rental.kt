@@ -10,5 +10,6 @@ data class Rental(
     var is_active: Boolean,
     val room: Room, // Matches "room" in API
     val landlord: User, // Matches "landlord" in API
-    val renter: User // Matches "renter" in API
+    val renter: User, // Matches "renter" in API
+    val utility_usage: UtilityUsage
 )
