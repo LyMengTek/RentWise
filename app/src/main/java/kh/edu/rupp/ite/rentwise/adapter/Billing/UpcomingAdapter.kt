@@ -1,14 +1,17 @@
 package kh.edu.rupp.ite.rentwise.adapter.Billing
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kh.edu.rupp.ite.rentwise.databinding.ViewHolderUpcomingBinding
-import kh.edu.rupp.ite.rentwise.model.Invoice
+import kh.edu.rupp.ite.rentwise.model.Rental
 
-class UpcomingAdapter(private var invoices: List<Invoice>): RecyclerView.Adapter<UpcomingViewHolder>(){
-    fun setInvoice(invoices: List<Invoice>) {
-        this.invoices = invoices
+class UpcomingAdapter(private var rentals: List<Rental>) : RecyclerView.Adapter<UpcomingViewHolder>() {
+
+    // Update the data in the adapter
+    fun setRentals(rentals: List<Rental>) {
+        this.rentals = rentals
         notifyDataSetChanged() // Notify the adapter to refresh the UI
     }
 
@@ -18,12 +21,15 @@ class UpcomingAdapter(private var invoices: List<Invoice>): RecyclerView.Adapter
         return UpcomingViewHolder(binding)
     }
 
-    override fun getItemCount(): Int {
-        return invoices.size
+    override fun onBindViewHolder(holder: UpcomingViewHolder, position: Int) {
+        val rental = rentals[position]
+        Log.d("UpcomingAdapter", "Binding item at position: $position with rental ID: ${rental.id}")
+        holder.bind(rental) // Bind the rental data
     }
 
-    override fun onBindViewHolder(holder: UpcomingViewHolder, position: Int) {
-        val invoice = invoices[position]
-        holder.bind(invoice)
+    override fun getItemCount(): Int {
+        val count = rentals.size
+        Log.d("UpcomingAdapter", "Item count: $count") // Log the item count
+        return count
     }
 }

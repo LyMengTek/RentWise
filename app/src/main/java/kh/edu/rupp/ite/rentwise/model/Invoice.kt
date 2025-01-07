@@ -1,13 +1,14 @@
 package kh.edu.rupp.ite.rentwise.model
 
-import java.util.Date
-
 data class Invoice(
-    val dueDate: Date,
+    val id: Int,
+    val rental_id: Int,
+    val room_code: Int,
+    val landlord_id: Int,
+    val renter_id: Int,
+    val amount_due: String,
+    val due_date: String,
     val paid: Boolean,
-    val room: Room,
-    val electricity: Double,
-    val water: Double,
-    val other: Double,
-    val user: User
+    val rental: Rental, // Matches nested object in API response
+    val created_at: String
 )

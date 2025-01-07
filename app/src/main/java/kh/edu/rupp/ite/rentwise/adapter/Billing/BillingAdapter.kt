@@ -5,13 +5,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kh.edu.rupp.ite.rentwise.databinding.ViewHolderBillingBinding
-import kh.edu.rupp.ite.rentwise.model.Invoice
+import kh.edu.rupp.ite.rentwise.model.Rental
 
-class BillingAdapter(private var invoices: List<Invoice>) : RecyclerView.Adapter<BillingViewHolder>() {
+class BillingAdapter(private var rentals: List<Rental>, private val onSubmit: (Rental, Int, Int, Int) -> Unit) : RecyclerView.Adapter<BillingViewHolder>() {
+
+    fun getRentals(): List<Rental> = rentals
 
     // Update the data in the adapter
-    fun setInvoice(invoices: List<Invoice>) {
-        this.invoices = invoices
+    fun setRentals(rentals: List<Rental>) {
+        this.rentals = rentals.filter { it.is_active } // Exclude inactive rentals
         notifyDataSetChanged() // Notify the adapter to refresh the UI
     }
 
@@ -22,13 +24,13 @@ class BillingAdapter(private var invoices: List<Invoice>) : RecyclerView.Adapter
     }
 
     override fun onBindViewHolder(holder: BillingViewHolder, position: Int) {
-        val invoice = invoices[position]
-        Log.d("BillingAdapter", "Binding item at position: $position with username: ${invoice.user.username}")
-        holder.bind(invoice) // Binding the data
+        val rental = rentals[position]
+        Log.d("BillingAdapter", "Binding item at position: $position with rental ID: ${rental.id}")
+        holder.bind(rental, onSubmit) // Bind the rental data
     }
 
     override fun getItemCount(): Int {
-        val count = invoices.size
+        val count = rentals.size
         Log.d("BillingAdapter", "Item count: $count") // Log the item count
         return count
     }
