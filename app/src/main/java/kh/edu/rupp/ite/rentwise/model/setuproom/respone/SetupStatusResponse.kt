@@ -1,24 +1,22 @@
 package kh.edu.rupp.ite.rentwise.model.setuproom.respone
 
+import kh.edu.rupp.ite.rentwise.model.Floor
+import kh.edu.rupp.ite.rentwise.model.setuproom.request.RoomType
+
+// Update SetupStatusResponse.kt
 data class SetupStatusResponse(
-    val isSetupComplete: Boolean,
-    val roomTypes: List<RoomType>,
-    val floors: List<Floor>,
-    val utilityPrices: UtilityPrices
+    val success: Boolean,
+    val data: ConfigurationData?,
+    val error: String? = null,
+    val message: String? = null
 )
 
-
-data class RoomType(
-    var name: String,
-    var price: Double
+data class ConfigurationData(
+    val room_types: List<String>,
+    val rooms: List<RoomLocation>
 )
 
-data class Floor(
-    val floorNumber: Int,
-    val room: List<Int>
-)
-
-data class UtilityPrices(
-    val waterPrice: String,
-    val electricityPrice: String
+data class RoomLocation(
+    val floor: Int,
+    val room: Int
 )

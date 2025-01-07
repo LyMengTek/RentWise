@@ -256,18 +256,30 @@ class SetupRoomTypeAndPricingActivity : ComponentActivity() {
                         val id = it.id // Assuming the response body has an `id` field
                         Log.d("UtilityPrices", "Utility prices saved successfully with ID: $id")
                     }
-                    Toast.makeText(this@SetupRoomTypeAndPricingActivity, "Utility prices saved successfully", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@SetupRoomTypeAndPricingActivity,
+                        "Utility prices saved successfully",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 } else {
-                    Log.e("UtilityPricesError", "Error saving utility prices: ${response.errorBody()?.string()}")
-                    Toast.makeText(this@SetupRoomTypeAndPricingActivity, "Error saving utility prices", Toast.LENGTH_SHORT).show()
+                    Log.e(
+                        "UtilityPricesError",
+                        "Error saving utility prices: ${response.errorBody()?.string()}"
+                    )
+                    Toast.makeText(
+                        this@SetupRoomTypeAndPricingActivity,
+                        "Error saving utility prices",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             } catch (e: Exception) {
                 Log.e("UtilityPricesException", "Exception occurred: ${e.message}")
-                Toast.makeText(this@SetupRoomTypeAndPricingActivity, "Network Failure: ${e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@SetupRoomTypeAndPricingActivity,
+                    "Network Failure: ${e.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
 }
-
-
-

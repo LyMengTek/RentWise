@@ -1,6 +1,5 @@
 package kh.edu.rupp.ite.rentwise.activity.landloard_setup
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,265 +8,186 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.gson.Gson
 import kh.edu.rupp.ite.rentwise.databinding.ActivitySetupRoomTypeAndPricingBinding
-import kh.edu.rupp.ite.rentwise.model.setuproom.respone.RoomType
-import kh.edu.rupp.ite.rentwise.model.setuproom.request.RoomTypePricesRequest
-import kh.edu.rupp.ite.rentwise.model.setuproom.request.UtilityPricesRequest
-import kh.edu.rupp.ite.rentwise.viewmodel.SetupRoomViewModel
+import kh.edu.rupp.ite.rentwise.viewmodel.RoomSetupViewModel
 import kh.edu.rupp.ite.rentwise.adapter.SetupRoom.FloorAdapter
 import kh.edu.rupp.ite.rentwise.adapter.SetupRoom.RoomTypeAdapter
-import kh.edu.rupp.ite.rentwise.api.RetrofitClient
-import kh.edu.rupp.ite.rentwise.model.State
-import kh.edu.rupp.ite.rentwise.model.setuproom.request.FloorRoomsRequest
-import kh.edu.rupp.ite.rentwise.model.setuproom.respone.Floor
-import kotlinx.coroutines.launch
-
+import kh.edu.rupp.ite.rentwise.model.Floor
+import kh.edu.rupp.ite.rentwise.model.setuproom.request.LandlordConfigurationsRequest
+import kh.edu.rupp.ite.rentwise.model.setuproom.request.RoomType
 
 class SetupRoomTypeAndPricingActivity : ComponentActivity() {
-
     private lateinit var binding: ActivitySetupRoomTypeAndPricingBinding
-    private lateinit var setupRoomViewModel: SetupRoomViewModel
-    private var floorCount: Int = 0  // Define floorCount as a class variable
+    private lateinit var viewModel: RoomSetupViewModel
+    private var floorCount: Int = 0
+    private var roomTypeCount: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySetupRoomTypeAndPricingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Initialize ViewModel
-        setupRoomViewModel = ViewModelProvider(this).get(SetupRoomViewModel::class.java)
+        setupViews()
+        setupViewModel()
+        setupObservers()
+        setupListeners()
+    }
 
-        // Observe setup status live data
-        setupRoomViewModel.dueSetupState.observe(this) { state ->
-            when (state.state) {
-                State.loading -> {
-                    // Handle loading state (show a progress bar or similar)
-                    binding.progressBar.visibility = View.VISIBLE
-                }
-
-                State.success -> {
-                    // Handle successful data retrieval
-                    binding.progressBar.visibility = View.GONE
-                    val setupData = state.data
-
-                    setupData?.let {
-                        val roomTypesCount = it.roomTypes.size
-                        Log.d("RoomTypes", "Room types: ${it.roomTypes}")
-
-                        binding.recyclerViewRoomTypes.adapter = RoomTypeAdapter(it.roomTypes)
-                        binding.recyclerViewFloors.adapter = FloorAdapter(it.floors)
-                        binding.editTextElectricityPrice.setText(it.utilityPrices.electricityPrice)
-                        binding.editTextWaterPrice.setText(it.utilityPrices.waterPrice)
-                        binding.editTextRoomTypeCount.setText(roomTypesCount.toString())
-                    }
-                }
-
-                State.error -> {
-                    // Handle error state (e.g., show a toast message)
-                    binding.progressBar.visibility = View.GONE
-                    Log.e("SetupDataError", "Error fetching setup data")// 'exception' should be the error object you catch
-
-                    Toast.makeText(this, "Error fetching setup data", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-
-        // Fetch setup data when the activity starts
-        setupRoomViewModel.loadDueSetup()
-
-        // Set up RecyclerViews with LayoutManagers
+    private fun setupViews() {
         binding.recyclerViewRoomTypes.layoutManager = LinearLayoutManager(this)
         binding.recyclerViewFloors.layoutManager = LinearLayoutManager(this)
 
-        // Initialize RecyclerViews with empty adapters
-        binding.recyclerViewRoomTypes.adapter = RoomTypeAdapter(emptyList())
+        // Initialize with empty adapters
+        binding.recyclerViewRoomTypes.adapter = RoomTypeAdapter(emptyList()) { selectedRoomType: RoomType ->
+            Log.d("RoomTypeAdapter", "Selected Room Type: ${selectedRoomType.type}")
+        }
         binding.recyclerViewFloors.adapter = FloorAdapter(emptyList())
+    }
 
-        // Text Watchers for dynamically updating RecyclerView data
+    private fun setupViewModel() {
+        viewModel = ViewModelProvider(this)[RoomSetupViewModel::class.java]
+    }
+
+    private fun setupObservers() {
+        viewModel.configResponse.observe(this) { response ->
+            if (response != null) {
+                Log.d("Setup", "Configuration saved successfully")
+                Toast.makeText(this, "Configuration saved successfully", Toast.LENGTH_SHORT).show()
+                finish()
+            }
+        }
+
+//        viewModel.error.observe(this) { errorMessage ->
+//            if (errorMessage != null) {
+//                Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
+//            }
+//        }
+
+        viewModel.isLoading.observe(this) { isLoading ->
+            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        }
+
+        viewModel.submissionSuccess.observe(this) { success ->
+            if (success) {
+                Toast.makeText(this, "Settings saved successfully", Toast.LENGTH_SHORT).show()
+                finish()
+            }
+        }
+    }
+
+    private fun setupListeners() {
+        setupTextWatchers()
+        setupClickListeners()
+    }
+
+    private fun setupTextWatchers() {
+        binding.editTextRoomCount.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                val newFloorCount = s.toString().toIntOrNull() ?: 0
+                if (newFloorCount != floorCount) {
+                    floorCount = newFloorCount
+                    updateFloorsList()
+                }
+            }
+        })
+
         binding.editTextRoomTypeCount.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
-                val typeCount = s.toString().toIntOrNull() ?: 0
-                val roomTypes = List(typeCount) { RoomType("Type $it", 50.0 + it * 10) }
-                binding.recyclerViewRoomTypes.adapter = RoomTypeAdapter(roomTypes)
+                val newRoomTypeCount = s.toString().toIntOrNull() ?: 0
+                if (newRoomTypeCount != roomTypeCount) {
+                    roomTypeCount = newRoomTypeCount
+                    updateRoomTypesList()
+                }
             }
         })
+    }
 
-        binding.editTextRoomCount.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+    private fun updateFloorsList() {
+        val floors = (1..floorCount).map { floorNumber ->
+            Floor(floor_number = floorNumber, room_count = 0)
+        }
+        (binding.recyclerViewFloors.adapter as FloorAdapter).updateFloors(floors)
+    }
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+    private fun updateRoomTypesList() {
+        val roomTypes = (1..roomTypeCount).map { index ->
+            RoomType(type = "Type $index", price = 0.0)
+        }
+        binding.recyclerViewRoomTypes.adapter = RoomTypeAdapter(roomTypes) { selectedType ->
+            Log.d("RoomTypeAdapter", "Selected Room Type: ${selectedType.type}")
+        }
+    }
 
-            override fun afterTextChanged(s: Editable?) {
-                floorCount = s.toString().toIntOrNull() ?: 0  // Dynamically update floorCount
-                val roomCount = binding.editTextRoomCount.text.toString().toIntOrNull() ?: 0 // Dynamically fetch room count
-                val floors = List(floorCount) { Floor(it + 1, List(roomCount) { 0 }) } // Initialize with roomCount 0 for each floor
-                binding.recyclerViewFloors.adapter = FloorAdapter(floors) // Update RecyclerView
-            }
-        })
-
+    private fun setupClickListeners() {
         binding.backToHome.setOnClickListener {
-            val intent = Intent(this, ShowRoomSetupOptionsActivity::class.java)
-            startActivity(intent)
+            finish()
         }
 
-        // Button to save room and floor setup
-        binding.btnSave.setOnClickListener {
-            val landlord_id = 1
-            val roomTypeCount = binding.editTextRoomTypeCount.text.toString().toIntOrNull() ?: 0
-            val electricityPrice = binding.editTextElectricityPrice.text.toString().trim().toDoubleOrNull() ?: 0.0
-            val waterPrice = binding.editTextWaterPrice.text.toString().trim().toDoubleOrNull() ?: 0.0
-            val roomCount = binding.editTextRoomCount.text.toString().toIntOrNull() ?: 0
-
-            // Get the adapter and the list of room types
-            val roomTypeAdapter = binding.recyclerViewRoomTypes.adapter as RoomTypeAdapter
-            val roomTypes = roomTypeAdapter.roomTypes
-
-            // Prepare room types data
-            val roomTypeRequests = roomTypes.map { roomType ->
-                RoomTypePricesRequest.RoomType(roomType.name, roomType.price)
-            }
-
-            // Create the RoomTypePricesRequest
-            val roomTypePricesRequest = RoomTypePricesRequest(landlord_id = landlord_id, room_types = roomTypeRequests)
-
-            // Log the data to be sent for room types (for debugging)
-            Log.d("RequestData", "RoomTypePricesRequest: ${Gson().toJson(roomTypePricesRequest)}")
-
-            // Send room type prices data to API
-            sendRoomTypePricesData(roomTypePricesRequest)
-
-            // Prepare floors data
-            val floors = List(floorCount) { kh.edu.rupp.ite.rentwise.model.Floor(floor_number = it + 1, room_count = roomCount) }
-
-            // Create the FloorRoomsRequest
-            val floorRoomsRequest = FloorRoomsRequest(landlord_id = landlord_id, floors = floors)
-
-            // Log the data to be sent for floor rooms (for debugging)
-            Log.d("RequestData", "FloorRoomsRequest: ${Gson().toJson(floorRoomsRequest)}")
-
-            // Send floorRooms data to API
-            sendFloorRoomsData(floorRoomsRequest)
-
-            // Prepare utility prices data
-            val utilityPricesRequest = UtilityPricesRequest(landlord_id = landlord_id, electricity_price = electricityPrice, water_price = waterPrice)
-
-            // Log the data to be sent for utility prices (for debugging)
-            Log.d("RequestData", "UtilityPricesRequest: ${Gson().toJson(utilityPricesRequest)}")
-
-            // Send utility prices data to API
-            sendUtilityPricesData(utilityPricesRequest)
-        }
+        binding.btnSave.setOnClickListener { saveConfigurations() }
     }
 
-    private fun sendFloorRoomsData(floorRoomsRequest: FloorRoomsRequest) {
-        val floorAdapter = binding.recyclerViewFloors.adapter as FloorAdapter
+    private fun saveConfigurations() {
+        try {
+            Log.d("SaveConfig", "Starting save configuration process")
 
-        // Get floor and room count pairs
-        val floorData = floorAdapter.getFloorsWithRoomCounts()
+            val landlordId = 1 // Replace with actual landlord ID
+            val electricityPrice = binding.editTextElectricityPrice.text.toString().toDoubleOrNull() ?: 0.0
+            val waterPrice = binding.editTextWaterPrice.text.toString().toDoubleOrNull() ?: 0.0
 
-        // Create list of floors with their respective room counts
-        val updatedFloors = floorData.map { (floorNumber, roomCount) ->
-            kh.edu.rupp.ite.rentwise.model.Floor(
-                floor_number = floorNumber,
-                room_count = roomCount
-            ).also {
-                Log.d("SetupRoom", "Creating floor $floorNumber with $roomCount rooms")
+            if (electricityPrice <= 0 || waterPrice <= 0) {
+                Toast.makeText(this, "Please enter valid prices", Toast.LENGTH_SHORT).show()
+                return
             }
-        }
 
-        // Create updated request
-        val updatedRequest = FloorRoomsRequest(
-            landlord_id = floorRoomsRequest.landlord_id,
-            floors = updatedFloors
-        )
+            val floorAdapter = binding.recyclerViewFloors.adapter as? FloorAdapter
+            val floors = floorAdapter?.getFloorsWithRoomCounts()?.map { (floorNumber, roomCount) ->
+                Floor(floor_number = floorNumber, room_count = roomCount)
+            } ?: emptyList()
 
-        // Log the request data
-        Log.d("SetupRoom", "Sending floor request: $updatedRequest")
-
-        lifecycleScope.launch {
-            try {
-                Log.d("SetupRoom", "Making API call with request: $updatedRequest")
-                val response = RetrofitClient.instance.saveFloorRooms(updatedRequest)
-
-                if (response.isSuccessful) {
-                    Toast.makeText(this@SetupRoomTypeAndPricingActivity,
-                        "Floor setup saved successfully", Toast.LENGTH_SHORT).show()
-                    Log.d("SetupRoom", "Floor setup saved successfully")
-                } else {
-                    val errorBody = response.errorBody()?.string()
-                    Log.e("SetupRoom", "Error saving floor setup: $errorBody")
-                    Toast.makeText(this@SetupRoomTypeAndPricingActivity,
-                        "Error saving floor setup", Toast.LENGTH_SHORT).show()
-                }
-            } catch (e: Exception) {
-                Log.e("SetupRoom", "Network Failure: ${e.message}", e)
-                Toast.makeText(this@SetupRoomTypeAndPricingActivity,
-                    "Network Failure: ${e.message}", Toast.LENGTH_SHORT).show()
+            if (floors.isEmpty()) {
+                Toast.makeText(this, "Please add at least one floor", Toast.LENGTH_SHORT).show()
+                return
             }
-        }
-    }
 
-    private fun sendRoomTypePricesData(roomTypePricesRequest: RoomTypePricesRequest) {
-        lifecycleScope.launch {
-            try {
-                // Call the API to save room type prices
-                val response = RetrofitClient.instance.saveRoomTypePrices(roomTypePricesRequest)
+            val roomTypeAdapter = binding.recyclerViewRoomTypes.adapter as? RoomTypeAdapter
+            val roomTypes = roomTypeAdapter?.roomTypes ?: emptyList()
 
-                // Log the raw response status code and body for debugging
-                Log.d("RoomTypePrices", "Response code: ${response.code()}")
-                val responseBody = response.body()
-                Log.d("RoomTypePrices", "Response body: ${responseBody?.toString()}")
-
-                if (response.isSuccessful) {
-                    // Log the successful response message
-                    responseBody?.let {
-                        val message = it.message // Assuming the response body has a `message` field
-                        Log.d("RoomTypePrices", "Room type prices saved successfully: $message")
-                    }
-                    Toast.makeText(this@SetupRoomTypeAndPricingActivity, "Room type prices saved successfully", Toast.LENGTH_SHORT).show()
-                } else {
-                    // Log the error if the response is not successful
-                    Log.e("RoomTypePricesError", "Error saving room type prices: ${response.errorBody()?.string()}")
-                    Toast.makeText(this@SetupRoomTypeAndPricingActivity, "Error saving room type prices", Toast.LENGTH_SHORT).show()
-                }
-            } catch (e: Exception) {
-                // Catch any exceptions during the API call
-                Log.e("RoomTypePricesException", "Exception occurred: ${e.message}")
-                Toast.makeText(this@SetupRoomTypeAndPricingActivity, "Network Failure: ${e.message}", Toast.LENGTH_SHORT).show()
+            if (roomTypes.isEmpty()) {
+                Toast.makeText(this, "Please add at least one room type", Toast.LENGTH_SHORT).show()
+                return
             }
-        }
-    }
 
-    private fun sendUtilityPricesData(utilityPricesRequest: UtilityPricesRequest) {
-        lifecycleScope.launch {
-            try {
-                // Call the API to save utility prices
-                val response = RetrofitClient.instance.saveUtilityPrices(utilityPricesRequest)
-
-                if (response.isSuccessful) {
-                    // Parse the response body to get the `id`
-                    val responseBody = response.body()
-                    responseBody?.let {
-                        val id = it.id // Assuming the response body has an `id` field
-                        Log.d("UtilityPrices", "Utility prices saved successfully with ID: $id")
-                    }
-                    Toast.makeText(this@SetupRoomTypeAndPricingActivity, "Utility prices saved successfully", Toast.LENGTH_SHORT).show()
-                } else {
-                    Log.e("UtilityPricesError", "Error saving utility prices: ${response.errorBody()?.string()}")
-                    Toast.makeText(this@SetupRoomTypeAndPricingActivity, "Error saving utility prices", Toast.LENGTH_SHORT).show()
-                }
-            } catch (e: Exception) {
-                Log.e("UtilityPricesException", "Exception occurred: ${e.message}")
-                Toast.makeText(this@SetupRoomTypeAndPricingActivity, "Network Failure: ${e.message}", Toast.LENGTH_SHORT).show()
+            // Validate room types data
+            if (roomTypes.any { it.type.isBlank() || it.price <= 0 }) {
+                Toast.makeText(this, "Please fill in all room type details", Toast.LENGTH_SHORT).show()
+                return
             }
+
+            val request = LandlordConfigurationsRequest(
+                landlord_id = landlordId,
+                water_price = waterPrice,
+                electricity_price = electricityPrice,
+                floors = floors,
+                room_types = roomTypes
+            )
+
+            Log.d("SaveConfig", "Request Details:")
+            Log.d("SaveConfig", "Landlord ID: ${request.landlord_id}")
+            Log.d("SaveConfig", "Water Price: ${request.water_price}")
+            Log.d("SaveConfig", "Electricity Price: ${request.electricity_price}")
+            Log.d("SaveConfig", "Floors: ${request.floors.map { "Floor ${it.floor_number}: ${it.room_count} rooms" }}")
+            Log.d("SaveConfig", "Room Types: ${request.room_types.map { "Type: ${it.type}, Price: ${it.price}" }}")
+
+            viewModel.submitLandlordConfigurations(request)
+
+        } catch (e: Exception) {
+            Log.e("SaveConfig", "Error saving configurations", e)
+            Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_LONG).show()
         }
     }
 }
-
-
-

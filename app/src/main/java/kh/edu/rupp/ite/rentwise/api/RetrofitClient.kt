@@ -1,5 +1,6 @@
 package kh.edu.rupp.ite.rentwise.api
 
+import RoomLocation
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -14,4 +15,5 @@ object RetrofitClient {
 
         retrofit.create(ApiService::class.java)
     }
+
 }

@@ -65,7 +65,7 @@ class ContactActivity : AppCompatActivity() {
                 val user = RetrofitClient.instance.getUser()
                 Log.d("ContactActivity", "User: $user")
                 // Update the adapter with the user data as a single-item list
-                contactAdapter.setUser(listOf(user))
+
                 contactAdapter.notifyDataSetChanged()
             } catch (e: Exception) {
                 Toast.makeText(

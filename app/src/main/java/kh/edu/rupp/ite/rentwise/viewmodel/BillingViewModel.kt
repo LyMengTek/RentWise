@@ -22,7 +22,7 @@ class BillingViewModel : ViewModel() {
             try {
                 delay(3000)
                 val dueRoom = RetrofitClient.instance.getDueRoom()
-                _dueRoomState.postValue(ApiState(State.success, dueRoom))
+
             }catch (e: Exception) {
                 _dueRoomState.postValue(ApiState(State.error, null))
             }

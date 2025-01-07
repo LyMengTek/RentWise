@@ -1,6 +1,10 @@
 package kh.edu.rupp.ite.rentwise.model.setuproom.request
 
-data class AssignRoomRequest(
+data class AssignRoomsRequest(
+    val rentals: List<RentalRequest>
+)
+
+data class RentalRequest(
     val landlord_id: Int,
     val renter_id: Int,
     val floor: Int,
@@ -10,9 +14,4 @@ data class AssignRoomRequest(
     val room_type: String,
     val utility_price_id: Int,
     val description: String
-)
-
-// For multiple rooms
-data class AssignMultipleRoomsRequest(
-    val rentals: List<AssignRoomRequest>
 )
