@@ -32,7 +32,7 @@ class RoomSetupViewModel : ViewModel() {
                 val response = RetrofitClient.instance.saveLandlordConfigurations(request)
                 if (response.isSuccessful) {
                     // Store the entire configuration response:
-                    _configResponse.value = response.body()
+//                    _configResponse.value = response.body()
                     _submissionSuccess.value = true
                 } else {
                     _error.value = "Error ${response.code()}: ${response.message()}"

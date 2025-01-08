@@ -2,26 +2,26 @@ package kh.edu.rupp.ite.rentwise.activity.other
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import kh.edu.rupp.ite.rentwise.activity.login_register.LandlordActivity
-import kh.edu.rupp.ite.rentwise.adapter.ContactAdapter
-import kh.edu.rupp.ite.rentwise.api.RetrofitClient
+import kh.edu.rupp.ite.rentwise.adapter.Contact.ContactAdapter
 import kh.edu.rupp.ite.rentwise.databinding.ActivityContactBinding
+import kh.edu.rupp.ite.rentwise.model.ApiState
 import kh.edu.rupp.ite.rentwise.model.State
 import kh.edu.rupp.ite.rentwise.model.User
 import kh.edu.rupp.ite.rentwise.viewmodel.ContactViewModel
-import kotlinx.coroutines.launch
 
 class ContactActivity : AppCompatActivity() {
-    private val viewModel = ContactViewModel()
 
     private lateinit var binding: ActivityContactBinding
     private lateinit var contactAdapter: ContactAdapter
+
+    // Initialize ViewModel using viewModels delegate
+    private val viewModel: ContactViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,22 +29,10 @@ class ContactActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupRecyclerView()
-//        loadUserContact() // Call to load user data on activity start
+        observeViewModel()
 
-        viewModel.dueContactState.observe(this) { dueRoomState ->
-            when (dueRoomState.state) {
-                State.loading -> showLoading()
-                State.success -> {
-                    hideLoading()
-                    // Wrap data in a list if dueRoomState.data is not null
-                    displayDueRoom(listOf(dueRoomState.data!!))
-                }
-                State.error -> {
-                    hideLoading()
-                    showErrorContent()
-                }
-            }
-        }
+        // Fetch contacts when the activity starts
+        viewModel.fetchContacts() // No need to pass landlordId
 
         binding.backToHome.setOnClickListener {
             val intent = Intent(this, LandlordActivity::class.java)
@@ -58,21 +46,21 @@ class ContactActivity : AppCompatActivity() {
         binding.contactRecyclerview.adapter = contactAdapter
     }
 
-    private fun loadUserContact() {
-        lifecycleScope.launch {
-            try {
-                // Retrieve user data from API
-//                val user = RetrofitClient.instance.getUser()
-//                Log.d("ContactActivity", "User: $user")
-//                // Update the adapter with the user data as a single-item list
-//                contactAdapter.setUser(listOf(user))
-//                contactAdapter.notifyDataSetChanged()
-            } catch (e: Exception) {
-                Toast.makeText(
-                    this@ContactActivity,
-                    "Error: ${e.message}",
-                    Toast.LENGTH_SHORT
-                ).show()
+    private fun observeViewModel() {
+        // Observe the LiveData from the ViewModel
+        viewModel.dueContactState.observe(this) { apiState ->
+            when (apiState.state) {
+                State.loading -> showLoading()
+                State.success -> {
+                    hideLoading()
+                    apiState.data?.let { users ->
+                        displayDueRoom(users) // Pass the List<User> to the adapter
+                    }
+                }
+                State.error -> {
+                    hideLoading()
+                    showErrorContent(apiState.errorMessage)
+                }
             }
         }
     }
@@ -88,14 +76,14 @@ class ContactActivity : AppCompatActivity() {
     }
 
     private fun displayDueRoom(data: List<User>) {
-        contactAdapter.setUser(data)
+        contactAdapter.setUser(data) // Pass the List<User> to the adapter
         contactAdapter.notifyDataSetChanged()
     }
 
-    private fun showErrorContent() {
+    private fun showErrorContent(message: String?) {
         Toast.makeText(
             this,
-            "An error occurred. Please try again.",
+            message ?: "An error occurred. Please try again.",
             Toast.LENGTH_SHORT
         ).show()
     }

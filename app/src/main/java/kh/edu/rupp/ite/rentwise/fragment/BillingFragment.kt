@@ -11,7 +11,7 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import kh.edu.rupp.ite.rentwise.adapter.BillingAdapter
+import kh.edu.rupp.ite.rentwise.adapter.Billing.BillingAdapter
 import kh.edu.rupp.ite.rentwise.databinding.FragmentBillingBinding
 import kh.edu.rupp.ite.rentwise.model.Rental
 import kh.edu.rupp.ite.rentwise.model.State

@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import kh.edu.rupp.ite.rentwise.databinding.ViewHolderContactBinding
 import kh.edu.rupp.ite.rentwise.model.User
 
-class ContactAdapter(private var users: List<User>): RecyclerView.Adapter<ContactViewHolder>() {
+class ContactAdapter(private var users: List<User>) : RecyclerView.Adapter<ContactViewHolder>() {
 
-    fun setUser(users: List<User>){
+    fun setUser(users: List<User>) {
         this.users = users
         notifyDataSetChanged()
     }
