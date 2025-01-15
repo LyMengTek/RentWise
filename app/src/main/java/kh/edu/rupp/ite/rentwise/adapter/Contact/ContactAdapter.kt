@@ -4,12 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kh.edu.rupp.ite.rentwise.databinding.ViewHolderContactBinding
-import kh.edu.rupp.ite.rentwise.model.User
+import kh.edu.rupp.ite.rentwise.model.Contact
 
-class ContactAdapter(private var users: List<User>) : RecyclerView.Adapter<ContactViewHolder>() {
+class ContactAdapter(private var contacts: List<Contact>) : RecyclerView.Adapter<ContactViewHolder>() {
 
-    fun setUser(users: List<User>) {
-        this.users = users
+    fun setContacts(contacts: List<Contact>) {
+        this.contacts = contacts
         notifyDataSetChanged()
     }
 
@@ -19,12 +19,11 @@ class ContactAdapter(private var users: List<User>) : RecyclerView.Adapter<Conta
         return ContactViewHolder(binding)
     }
 
-    override fun getItemCount(): Int {
-        return users.size
-    }
+    override fun getItemCount(): Int = contacts.size
 
     override fun onBindViewHolder(holder: ContactViewHolder, position: Int) {
-        val user = users[position]
-        holder.bind(user)
+        val contact = contacts[position]
+        holder.bind(contact)
     }
 }
+

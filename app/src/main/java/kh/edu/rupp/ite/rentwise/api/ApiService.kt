@@ -3,6 +3,7 @@ package kh.edu.rupp.ite.rentwise.api
 //import kh.edu.rupp.ite.rentwise.Room
 import LandlordConfigurationsResponse
 import kh.edu.rupp.ite.rentwise.model.ApiResponse
+import kh.edu.rupp.ite.rentwise.model.Contact
 import kh.edu.rupp.ite.rentwise.model.Invoice
 import kh.edu.rupp.ite.rentwise.model.InvoiceRequest
 import kh.edu.rupp.ite.rentwise.model.LoginRequest
@@ -16,6 +17,7 @@ import kh.edu.rupp.ite.rentwise.model.setuproom.request.FloorRoomsRequest
 import kh.edu.rupp.ite.rentwise.model.setuproom.request.LandlordConfigurationsRequest
 import kh.edu.rupp.ite.rentwise.model.setuproom.request.RoomTypePricesRequest
 import kh.edu.rupp.ite.rentwise.model.setuproom.request.UtilityPricesRequest
+import kh.edu.rupp.ite.rentwise.model.setuproom.respone.RoomResponse
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Response
@@ -45,8 +47,12 @@ interface ApiService {
     @POST("/api/create/invoice")
     suspend fun createInvoice(@Body invoiceRequest: InvoiceRequest): ApiResponse<List<Invoice>>
     // test here
-    @GET("/api/contact/byLandlord/23")
-    suspend fun getContact(): ApiResponse<User>
+    @GET("/api/contact/byLandlord/{userId}")
+    suspend fun getContact(@Path("userId") userId: Int): ApiResponse<Contact>
+
+    // test here
+    @GET("/api/landlord/{landlordId}/rooms")
+    suspend fun getFloorType(@Path("landlordId") landlordId: Int): RoomResponse
 
     @POST("/api/rental/setup")
     suspend fun saveRoomAssignments(@Body assignRoomRequest: AssignRoomsRequest): Response<ResponseBody>

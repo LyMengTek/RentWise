@@ -58,11 +58,11 @@ class SetupRoomTypeAndPricingActivity : ComponentActivity() {
             }
         }
 
-//        viewModel.error.observe(this) { errorMessage ->
-//            if (errorMessage != null) {
-//                Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
-//            }
-//        }
+        viewModel.error.observe(this) { errorMessage ->
+            if (errorMessage != null) {
+                Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
+            }
+        }
 
         viewModel.isLoading.observe(this) { isLoading ->
             binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
@@ -131,16 +131,33 @@ class SetupRoomTypeAndPricingActivity : ComponentActivity() {
         binding.btnSave.setOnClickListener { saveConfigurations() }
     }
 
+    private fun getUserIdFromSharedPreferences(): Int {
+        val sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE)
+        val userIdString = sharedPreferences.getString("userId", null) // Retrieve as String
+        return userIdString?.toIntOrNull() ?: -1 // Convert to Int, return -1 if conversion fails
+    }
+
     private fun saveConfigurations() {
         try {
             Log.d("SaveConfig", "Starting save configuration process")
 
-            val landlordId = 1 // Replace with actual landlord ID
-            val electricityPrice = binding.editTextElectricityPrice.text.toString().toDoubleOrNull() ?: 0.0
-            val waterPrice = binding.editTextWaterPrice.text.toString().toDoubleOrNull() ?: 0.0
+            // Get landlord ID from SharedPreferences and convert to Int
+            val landlordId = getUserIdFromSharedPreferences()
+            if (landlordId == -1) {
+                Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show()
+                return
+            }
 
-            if (electricityPrice <= 0 || waterPrice <= 0) {
-                Toast.makeText(this, "Please enter valid prices", Toast.LENGTH_SHORT).show()
+            val electricityPrice = binding.editTextElectricityPrice.text.toString().toDoubleOrNull()
+            val waterPrice = binding.editTextWaterPrice.text.toString().toDoubleOrNull()
+
+            if (electricityPrice == null || electricityPrice <= 0) {
+                Toast.makeText(this, "Please enter a valid electricity price", Toast.LENGTH_SHORT).show()
+                return
+            }
+
+            if (waterPrice == null || waterPrice <= 0) {
+                Toast.makeText(this, "Please enter a valid water price", Toast.LENGTH_SHORT).show()
                 return
             }
 
@@ -169,7 +186,7 @@ class SetupRoomTypeAndPricingActivity : ComponentActivity() {
             }
 
             val request = LandlordConfigurationsRequest(
-                landlord_id = landlordId,
+                landlord_id = landlordId, // Use the converted integer
                 water_price = waterPrice,
                 electricity_price = electricityPrice,
                 floors = floors,

@@ -5,7 +5,6 @@ data class ApiState<T>(
     val data: T? = null,
     val errorMessage: String? = null // Add error message
 )
-
 enum class State {
     loading,
     success,

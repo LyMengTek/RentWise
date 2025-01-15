@@ -1,27 +1,39 @@
 package kh.edu.rupp.ite.rentwise.activity.other
 
-import android.content.Intent
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import kh.edu.rupp.ite.rentwise.activity.login_register.LandlordActivity
 import kh.edu.rupp.ite.rentwise.adapter.Contact.ContactAdapter
 import kh.edu.rupp.ite.rentwise.databinding.ActivityContactBinding
 import kh.edu.rupp.ite.rentwise.model.ApiState
 import kh.edu.rupp.ite.rentwise.model.State
-import kh.edu.rupp.ite.rentwise.model.User
+import kh.edu.rupp.ite.rentwise.model.Contact
 import kh.edu.rupp.ite.rentwise.viewmodel.ContactViewModel
 
-class ContactActivity : AppCompatActivity() {
+class ContactViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(ContactViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return ContactViewModel(context) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
+}
 
+class ContactActivity : AppCompatActivity() {
     private lateinit var binding: ActivityContactBinding
     private lateinit var contactAdapter: ContactAdapter
 
-    // Initialize ViewModel using viewModels delegate
-    private val viewModel: ContactViewModel by viewModels()
+    private val viewModel: ContactViewModel by viewModels {
+        ContactViewModelFactory(applicationContext)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,32 +42,35 @@ class ContactActivity : AppCompatActivity() {
 
         setupRecyclerView()
         observeViewModel()
-
-        // Fetch contacts when the activity starts
-        viewModel.fetchContacts() // No need to pass landlordId
+        viewModel.fetchContacts()
 
         binding.backToHome.setOnClickListener {
-            val intent = Intent(this, LandlordActivity::class.java)
-            startActivity(intent)
+            finish()
         }
     }
 
     private fun setupRecyclerView() {
-        contactAdapter = ContactAdapter(listOf()) // Start with an empty list
-        binding.contactRecyclerview.layoutManager = LinearLayoutManager(this)
-        binding.contactRecyclerview.adapter = contactAdapter
+        contactAdapter = ContactAdapter(emptyList())
+        binding.contactRecyclerview.apply {
+            layoutManager = LinearLayoutManager(this@ContactActivity)
+            adapter = contactAdapter
+            setHasFixedSize(true)
+        }
     }
 
     private fun observeViewModel() {
-        // Observe the LiveData from the ViewModel
         viewModel.dueContactState.observe(this) { apiState ->
             when (apiState.state) {
                 State.loading -> showLoading()
                 State.success -> {
                     hideLoading()
-                    apiState.data?.let { users ->
-                        displayDueRoom(users) // Pass the List<User> to the adapter
-                    }
+                    apiState.data?.let { contacts ->
+                        if (contacts.isEmpty()) {
+                            showEmptyState()
+                        } else {
+                            displayContacts(contacts)
+                        }
+                    } ?: showErrorContent("No data available")
                 }
                 State.error -> {
                     hideLoading()
@@ -66,25 +81,47 @@ class ContactActivity : AppCompatActivity() {
     }
 
     private fun showLoading() {
-        binding.contactRecyclerview.visibility = View.GONE
-        binding.progressBar.visibility = View.VISIBLE
+        binding.apply {
+            contactRecyclerview.visibility = View.GONE
+            progressBar.visibility = View.VISIBLE
+        }
     }
 
     private fun hideLoading() {
-        binding.progressBar.visibility = View.GONE
-        binding.contactRecyclerview.visibility = View.VISIBLE
+        binding.apply {
+            progressBar.visibility = View.GONE
+            contactRecyclerview.visibility = View.VISIBLE
+        }
     }
 
-    private fun displayDueRoom(data: List<User>) {
-        contactAdapter.setUser(data) // Pass the List<User> to the adapter
-        contactAdapter.notifyDataSetChanged()
+    private fun showEmptyState() {
+        binding.apply {
+            contactRecyclerview.visibility = View.GONE
+            error.visibility = View.VISIBLE
+        }
+        showErrorContent("No contacts available")
+    }
+
+    private fun displayContacts(data: List<Contact>) {
+        try {
+            binding.error.visibility = View.GONE
+            binding.contactRecyclerview.visibility = View.VISIBLE
+            contactAdapter.setContacts(data)
+        } catch (e: Exception) {
+            Log.e("ContactActivity", "Error updating adapter", e)
+            showErrorContent("Error displaying contacts")
+        }
     }
 
     private fun showErrorContent(message: String?) {
-        Toast.makeText(
-            this,
-            message ?: "An error occurred. Please try again.",
-            Toast.LENGTH_SHORT
-        ).show()
+        try {
+            Toast.makeText(
+                this,
+                message ?: "An error occurred. Please try again.",
+                Toast.LENGTH_SHORT
+            ).show()
+        } catch (e: Exception) {
+            Log.e("ContactActivity", "Error showing toast", e)
+        }
     }
 }
